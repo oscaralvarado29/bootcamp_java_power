@@ -78,7 +78,6 @@ public class UserService implements IUserService{
      */
     @Override
     public void updateUser(UserDto userDto) {
-
         if (userDto.getUserEmail() != null) {
             Optional<User> newUser = userRepository.findByUserEmail(userDto.getUserEmail());
             if (newUser.isPresent()) {
