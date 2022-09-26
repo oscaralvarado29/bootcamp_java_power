@@ -110,10 +110,6 @@ public class UserService implements IUserService{
             throw new EmailInvaldFormatException();
         }
     }
-
-
-
-
     /**
      * @param userEmail user email to delete
      */
@@ -173,6 +169,5 @@ public class UserService implements IUserService{
         User user = userRepository.findByUserEmail(userEmail).orElseThrow(UserNotFoundException::new);
         return userMapper.toUserDto(user);
     }
-
 
 }

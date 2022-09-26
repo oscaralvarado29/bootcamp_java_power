@@ -15,7 +15,7 @@ public enum ExceptionResponse {
 
 
 
-    private String message;
+    private final String  message;
 
     ExceptionResponse(String message) {
         this.message = message;
