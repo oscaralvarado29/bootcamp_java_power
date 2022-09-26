@@ -1,15 +1,11 @@
 package com.oscar.usuario.exceptionhandler;
 
-import com.oscar.usuario.controller.UserController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice()
@@ -42,8 +38,32 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap(MESSAGE, ExceptionResponse.MISSING_MANDATORY_DATA.getMessage()));
     }
 
-    @ExceptionHandler(PasswordNotValidException.class)
-    public ResponseEntity<Map<String, String>> passwordNotValid(PasswordNotValidException passwordNotValidException) {
+    @ExceptionHandler(PasswordOfSizeInvalidException.class)
+    public ResponseEntity<Map<String, String>> passwordNotValid(PasswordOfSizeInvalidException passwordOfSizeInvalidException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap(MESSAGE, ExceptionResponse.PASSWORD_NOT_VALID.getMessage()));
+    }
+
+    @ExceptionHandler(PasswordWithOutLowerCaseException.class)
+    public ResponseEntity<Map<String, String>> passwordWithOutLowerCase(PasswordWithOutLowerCaseException passwordWithOutLowerCaseException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap(MESSAGE, ExceptionResponse.PASSWORD_WITHOUT_LOWERCASE_EXCEPTION.getMessage()));
+    }
+
+    @ExceptionHandler(PasswordWithOutUpperCaseException.class)
+    public ResponseEntity<Map<String, String>> passwordWithOutUpperCase(PasswordWithOutUpperCaseException passwordWithOutUpperCaseException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap(MESSAGE, ExceptionResponse.PASSWORD_WITHOUT_UPPERCASE_EXCEPTION.getMessage()));
+    }
+
+    @ExceptionHandler(PasswordWithOutNumberException.class)
+    public ResponseEntity<Map<String, String>> passwordWithOutNumber(PasswordWithOutNumberException passwordWithOutNumberException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap(MESSAGE, ExceptionResponse.PASSWORD_WITHOUT_NUMBER_EXCEPTION.getMessage()));
+    }
+    @ExceptionHandler(PasswordWithOutCharacterException.class)
+    public ResponseEntity<Map<String, String>> passwordWithOutCharacter(PasswordWithOutCharacterException passwordWithOutCharacterException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap(MESSAGE, ExceptionResponse.PASSWORD_WITHOUT_SPECIAL_CHARACTER_EXCEPTION.getMessage()));
+    }
+
+    @ExceptionHandler(PasswordWithCharacterNotAllowedException.class)
+    public ResponseEntity<Map<String, String>> passwordWithCharacterNotAllowed(PasswordWithCharacterNotAllowedException passwordWithCharacterNotAllowedException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap(MESSAGE, ExceptionResponse.PASSWORD_WITH_CHARACTER_NOT_ALLOWED_EXCEPTION.getMessage()));
     }
 }

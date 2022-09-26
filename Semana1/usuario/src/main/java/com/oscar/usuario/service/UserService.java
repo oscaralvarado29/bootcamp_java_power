@@ -44,17 +44,19 @@ public class UserService implements IUserService{
     }
 
     private void passwordValidator(String userPassword) {
+
         if (userPassword.length() > 7 && userPassword.length() < 16) {
             List<Character> lowerCase =  List.of('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
             List<Character> upperCase = List.of('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
             List<Character> numbers = List.of('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-            List<Character> specialCharacters = List.of('*', '_', '-');
+            List<Character> specialCharactersAllowed = List.of('*', '_', '-');
+            List<Character> specialCharactersNotAllowed = List.of('!', '"', '#', '$', '%', '&', '/', '(', ')', '=', '?', '¡', '¿', '¨', '^', '´', '`', '+', '{', '}', '[', ']', 'ç', 'Ç', 'º', 'ª', '°', '¬', '|', '·', '>', '<', ';', ':', ',', '.', ' ','@','\\');
             for (int i = 0; i < userPassword.length(); i++) {
                 if (lowerCase.contains(userPassword.charAt(i))) {
                     break;
                 }else {
                     if ( i == userPassword.length()-1){
-                        throw new PasswordNotValidException();
+                        throw new PasswordWithOutLowerCaseException();
                     }
                 }
 
@@ -63,36 +65,42 @@ public class UserService implements IUserService{
             for (int p = 0; p < userPassword.length(); p++) {
                 if (upperCase.contains(userPassword.charAt(p))) {
                     break;
-                }else {
-                    if ( p == userPassword.length()-1){
-                        throw new PasswordNotValidException();
+                } else {
+                    if (p == userPassword.length() - 1) {
+                        throw new PasswordWithOutUpperCaseException();
                     }
                 }
-
+            }
                 for (int q = 0; q < userPassword.length(); q++) {
                     if (numbers.contains(userPassword.charAt(q))) {
                         break;
                     }else {
                         if ( q == userPassword.length()-1){
-                            throw new PasswordNotValidException();
+                            throw new PasswordWithOutNumberException();
                         }
                     }
 
                 }
 
-                for (int i = 0; i < userPassword.length(); i++) {
-                    if (specialCharacters.contains(userPassword.charAt(i))) {
+                for (int r = 0; r < userPassword.length(); r++) {
+                    if (specialCharactersAllowed.contains(userPassword.charAt(r))) {
                         break;
                     }else {
-                        if ( i == userPassword.length()-1){
-                            throw new PasswordNotValidException();
+                        if ( r == userPassword.length()-1){
+                            throw new PasswordWithOutCharacterException();
                         }
                     }
 
                 }
 
+            for (int s = 0; s < userPassword.length(); s++) {
+                if (specialCharactersNotAllowed.contains(userPassword.charAt(s))) {
+                    throw new PasswordWithCharacterNotAllowedException();
+                }
             }
 
+        } else{
+            throw new PasswordOfSizeInvalidException();
         }
     }
 
@@ -102,6 +110,9 @@ public class UserService implements IUserService{
             throw new EmailInvaldFormatException();
         }
     }
+
+
+
 
     /**
      * @param userEmail user email to delete
