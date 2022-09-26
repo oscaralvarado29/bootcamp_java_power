@@ -10,9 +10,8 @@ import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
 @Service
@@ -45,11 +44,55 @@ public class UserService implements IUserService{
     }
 
     private void passwordValidator(String userPassword) {
-        String passworRegex = "^(?=.*\\w)(?=.*[*_-])(?=\\S+$).{8,15}$";
-        Pattern pattern = Pattern.compile(passworRegex);
-        Matcher matcher = pattern.matcher(userPassword);
-        if (!matcher.matches()) {
-            throw new PasswordNotValidException();
+        if (userPassword.length() > 7 && userPassword.length() < 16) {
+            List<Character> lowerCase =  List.of('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+            List<Character> upperCase = List.of('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+            List<Character> numbers = List.of('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+            List<Character> specialCharacters = List.of('*', '_', '-');
+            for (int i = 0; i < userPassword.length(); i++) {
+                if (lowerCase.contains(userPassword.charAt(i))) {
+                    break;
+                }else {
+                    if ( i == userPassword.length()-1){
+                        throw new PasswordNotValidException();
+                    }
+                }
+
+            }
+
+            for (int p = 0; p < userPassword.length(); p++) {
+                if (upperCase.contains(userPassword.charAt(p))) {
+                    break;
+                }else {
+                    if ( p == userPassword.length()-1){
+                        throw new PasswordNotValidException();
+                    }
+                }
+
+                for (int q = 0; q < userPassword.length(); q++) {
+                    if (numbers.contains(userPassword.charAt(q))) {
+                        break;
+                    }else {
+                        if ( q == userPassword.length()-1){
+                            throw new PasswordNotValidException();
+                        }
+                    }
+
+                }
+
+                for (int i = 0; i < userPassword.length(); i++) {
+                    if (specialCharacters.contains(userPassword.charAt(i))) {
+                        break;
+                    }else {
+                        if ( i == userPassword.length()-1){
+                            throw new PasswordNotValidException();
+                        }
+                    }
+
+                }
+
+            }
+
         }
     }
 

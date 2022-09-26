@@ -1,7 +1,9 @@
 package com.oscar.usuario.service;
 
 import com.oscar.usuario.dto.UserDto;
+import com.oscar.usuario.exceptionhandler.EmailInvaldFormatException;
 import com.oscar.usuario.exceptionhandler.MissingMandatoryDataException;
+import com.oscar.usuario.exceptionhandler.PasswordNotValidException;
 import com.oscar.usuario.exceptionhandler.UserAlreadyExistsException;
 import com.oscar.usuario.factory.FactoryUserDataTest;
 import com.oscar.usuario.mapper.UserMapper;
@@ -100,6 +102,40 @@ class UserServiceTest {
         );
     }
 
+    @Test
+    void trowEmailInvalidFormatExceptionWhenAttemptSaveUserWithInvalidEmail() {
+        //Given
+        //yo como usuario intento guardar un usuario con un email incorrecto
+        UserDto userDto = FactoryUserDataTest.getUserDto();
+        userDto.setUserEmail("oscar");
+        //When
+        //le envio un usuario con un email invalido
+        when(userRepository.findByUserEmail(anyString())).thenReturn(Optional.empty());
+
+        //Then
+        //el sistema e genera una excepcion deltipo EmailInvalidFormatException
+        assertThrows(EmailInvaldFormatException.class, () -> {
+                    userService.saveUser(userDto);
+                }
+        );
+    }
+    @Test
+    void trowPasswordInvalidFormatExceptionWhenAttemptSaveUserWithInvalidPassword() {
+        //Given
+        //yo como usuario intento guardar un usuario con un una contraseña incorrecto
+        UserDto userDto = FactoryUserDataTest.getUserDto();
+        userDto.setUserPassword("123abcd*");
+        //When
+        //le envio un usuario con un password invalido
+        when(userRepository.findByUserEmail(anyString())).thenReturn(Optional.empty());
+
+        //Then
+        //el sistema e genera una excepcion deltipo PasswordInvalidFormatException
+        assertThrows(PasswordNotValidException.class, () -> {
+                    userService.saveUser(userDto);
+                }
+        );
+    }
     @Test
     void deleteUser() {
     }
