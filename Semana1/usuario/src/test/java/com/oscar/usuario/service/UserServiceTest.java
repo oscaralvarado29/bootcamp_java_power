@@ -1,6 +1,8 @@
 package com.oscar.usuario.service;
 
 import com.oscar.usuario.dto.UserDto;
+import com.oscar.usuario.exceptionhandler.MissingMandatoryDataException;
+import com.oscar.usuario.exceptionhandler.UserAlreadyExistsException;
 import com.oscar.usuario.factory.FactoryUserDataTest;
 import com.oscar.usuario.mapper.UserMapper;
 import com.oscar.usuario.model.User;
@@ -32,7 +34,7 @@ class UserServiceTest {
     @Test
     void mustSaveAUser() {
         //Given
-        //yo coo usuario hago la solictud para guardar un usuario
+        //yo como usuario hago la solictud para guardar un usuario
         User expectedUser = FactoryUserDataTest.getUser();
         UserDto userDto = FactoryUserDataTest.getUserDto();
 
@@ -45,6 +47,57 @@ class UserServiceTest {
         //Then
         //el sistema e guarda un nuevo usuario
         verify(userRepository).save(any(User.class));
+    }
+
+    @Test
+    void trowUserAlreadyExistsExceptionWhenAttemptSaveUserThatAlreadyExists() {
+        //Given
+        //yo como usuario intento guardar un usuario que ya existe
+        User expectedUser = FactoryUserDataTest.getUser();
+        UserDto userDto = FactoryUserDataTest.getUserDto();
+        //When
+        //le envio un usuario que ya existe
+        when(userRepository.findByUserEmail(anyString())).thenReturn(Optional.of(expectedUser));
+
+        //Then
+        //el sistema e genera una excepcion deltipo UserAlreadyExistsException
+        assertThrows(UserAlreadyExistsException.class, () -> {userService.saveUser(userDto);});
+    }
+
+    @Test
+    void trowMissingMandatoryDataExceptionWhenAttemptSaveUserWithOutUserName() {
+        //Given
+        //yo como usuario intento guardar un usuario sin nombre
+        UserDto userDto = FactoryUserDataTest.getUserDto();
+        userDto.setUserName(null);
+        //When
+        //le envio un usuario sin nombre
+        when(userRepository.findByUserEmail(anyString())).thenReturn(Optional.empty());
+
+        //Then
+        //el sistema e genera una excepcion deltipo MissingMandatoryDataException
+        assertThrows(MissingMandatoryDataException.class, () -> {
+            userService.saveUser(userDto);
+        }
+        );
+    }
+
+    @Test
+    void trowMissingMandatoryDataExceptionWhenAttemptSaveUserWithOutSurName() {
+        //Given
+        //yo como usuario intento guardar un usuario sin apellido
+        UserDto userDto = FactoryUserDataTest.getUserDto();
+        userDto.setUserSurname(null);
+        //When
+        //le envio un usuario sin nombre
+        when(userRepository.findByUserEmail(anyString())).thenReturn(Optional.empty());
+
+        //Then
+        //el sistema e genera una excepcion deltipo MissingMandatoryDataException
+        assertThrows(MissingMandatoryDataException.class, () -> {
+                    userService.saveUser(userDto);
+                }
+        );
     }
 
     @Test
