@@ -8,6 +8,6 @@ public interface IUserServicePort {
     void saveUser(User user);
     void updateUser(User user);
     void deleteUser(String userEmail);
-    User getUser(String userEmail);
+    User findUserByEmail(String userEmail);
     List<User> getAllUsers();
 }
