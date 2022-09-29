@@ -7,7 +7,7 @@ import java.util.List;
 public interface INeighborhoodServicePort {
     void saveNeighborhood(Neighborhood neighborhood);
     void updateNeighborhood(Neighborhood neighborhood);
-    void deleteNeighborhood(Long neighborhoodId);
+    void deleteNeighborhood(String neighborhoodName);
     Neighborhood getNeighborhood(Long neighborhoodId);
     List<Neighborhood> getAllNeighborhoods();
 }
