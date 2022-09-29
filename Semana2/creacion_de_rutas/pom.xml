@@ -12,7 +12,7 @@
 	<artifactId>creacion_de_rutas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>creacion_de_rutas</name>
-	<description>funcionalidad para la creación de los viajes que realizará un conductor</description>
+	<description>Proyecto para la creación de las rutas que tendrán de los viajes que realizará un conductor</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -20,8 +20,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency><![CDATA[
-			]]><dependency>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -46,19 +50,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<!-- dependencias personales-->
-
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>1.5.2.Final</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
-		<dependency>
-			<groupId>io.swagger.core.v3</groupId>
-			<artifactId>swagger-annotations</artifactId>
-			<version>2.2.2</version>
 		</dependency>
 	</dependencies>
 
