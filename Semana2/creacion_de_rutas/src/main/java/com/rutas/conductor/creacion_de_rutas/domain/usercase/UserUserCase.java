@@ -53,42 +53,7 @@ public class UserUserCase implements IUserServicePort {
      */
     @Override
     public void updateUser(User user) {
-
-        User userToUpdate = validationOfComplianceWithTheRequirementsForUpdateUser(user);
-        userPersistencePort.updateUser(userToUpdate);
-    }
-
-    private User validationOfComplianceWithTheRequirementsForUpdateUser(User user) {
-        if (user.getUserEmail() != null) {
-            Optional<User> newUser = Optional.ofNullable(userPersistencePort.findByUserEmail(user.getUserEmail()));
-            if (newUser.isPresent()) {
-
-                if (user.getUserName() != null) {
-                    newUser.get().setUserName(user.getUserName());
-                }
-                if (user.getUserSurname() != null) {
-                    newUser.get().setUserSurname(user.getUserSurname());
-                }
-                if (user.getUserPhone() != null) {
-                    newUser.get().setUserPhone(user.getUserPhone());
-                }
-                if (user.getUserAddress() != null) {
-                    newUser.get().setUserAddress(user.getUserAddress());
-                }
-                if (user.getUserEmail() != null) {
-                    newUser.get().setUserEmail(user.getUserEmail());
-                }
-                if (user.getUserPassword() != null) {
-                    newUser.get().setUserPassword(user.getUserPassword());
-                }
-                return newUser.get();
-            } else {
-                throw new UserNotFoundException();
-            }
-        } else {
-            throw new EmailNotPresentException();
-        }
-
+        userPersistencePort.updateUser(user);
     }
 
     /**

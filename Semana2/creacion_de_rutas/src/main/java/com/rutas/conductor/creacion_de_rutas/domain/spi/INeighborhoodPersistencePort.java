@@ -9,7 +9,6 @@ public interface INeighborhoodPersistencePort {
     void updateNeighborhood(Neighborhood neighborhood);
     void deleteNeighborhood(String neighborhoodName);
     Neighborhood getNeighborhood(Long neighborhoodId);
-    Neighborhood findNeighborhoodByName(String neighborhoodName);
     List<Neighborhood> getAllNeighborhoods();
 
 }

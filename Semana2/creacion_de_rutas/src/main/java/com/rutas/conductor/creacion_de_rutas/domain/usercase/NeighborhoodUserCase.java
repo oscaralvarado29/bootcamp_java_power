@@ -1,14 +1,10 @@
 package com.rutas.conductor.creacion_de_rutas.domain.usercase;
 
 import com.rutas.conductor.creacion_de_rutas.domain.api.INeighborhoodServicePort;
-import com.rutas.conductor.creacion_de_rutas.domain.exceptions.NeighborhoodAlreadyExistsException;
-import com.rutas.conductor.creacion_de_rutas.domain.exceptions.NeighborhoodNameNotPresentException;
-import com.rutas.conductor.creacion_de_rutas.domain.exceptions.NeighborhoodNotFoundException;
 import com.rutas.conductor.creacion_de_rutas.domain.model.Neighborhood;
 import com.rutas.conductor.creacion_de_rutas.domain.spi.INeighborhoodPersistencePort;
 
 import java.util.List;
-import java.util.Optional;
 
 public class NeighborhoodUserCase implements INeighborhoodServicePort {
     private final INeighborhoodPersistencePort neighborhoodPersistencePort;
@@ -22,16 +18,7 @@ public class NeighborhoodUserCase implements INeighborhoodServicePort {
      */
     @Override
     public void saveNeighborhood(Neighborhood neighborhood) {
-
-        if (neighborhood.getNeighborhoodName() != null) {
-            Optional<Neighborhood> neighborhoodDB = Optional.ofNullable(neighborhoodPersistencePort.findNeighborhoodByName(neighborhood.getNeighborhoodName()));
-            if (neighborhoodDB.isPresent()) {
-                throw new NeighborhoodAlreadyExistsException();
-            }
-            neighborhoodPersistencePort.saveNeighborhood(neighborhood);
-        } else {
-            throw new NeighborhoodNameNotPresentException();
-        }
+        neighborhoodPersistencePort.saveNeighborhood(neighborhood);
     }
 
     /**
@@ -39,39 +26,16 @@ public class NeighborhoodUserCase implements INeighborhoodServicePort {
      */
     @Override
     public void updateNeighborhood(Neighborhood neighborhood) {
-        Neighborhood neighborhoodToUpdate = validationOfComplianceWithTheRequirementsForUpdateNeighborhood(neighborhood);
-        neighborhoodPersistencePort.updateNeighborhood(neighborhoodToUpdate);
+        neighborhoodPersistencePort.updateNeighborhood(neighborhood);
     }
 
-    private Neighborhood validationOfComplianceWithTheRequirementsForUpdateNeighborhood(Neighborhood neighborhood) {
-        if (neighborhood.getNeighborhoodName() != null) {
-            Optional<Neighborhood> neighborhoodDB = Optional.ofNullable(neighborhoodPersistencePort.findNeighborhoodByName(neighborhood.getNeighborhoodName()));
-            if (neighborhoodDB.isPresent()) {
-                if (neighborhood.getNeighborhoodName() != null) {
-                    neighborhoodDB.get().setNeighborhoodName(neighborhood.getNeighborhoodName());
-                }
-                if (neighborhood.getNeighborhoodDescription() != null) {
-                    neighborhoodDB.get().setNeighborhoodDescription(neighborhood.getNeighborhoodDescription());
-                }
-                return neighborhoodDB.get();
-            }else {
-                throw new NeighborhoodNotFoundException();
-            }
-        } else {
-            throw new NeighborhoodNameNotPresentException();
-        }
-    }
+
     /**
      * @param neighborhoodName the name of the neighborhood to be deleted
      */
     @Override
     public void deleteNeighborhood(String neighborhoodName) {
-        Optional<Neighborhood> neighborhoodDB = Optional.ofNullable(neighborhoodPersistencePort.findNeighborhoodByName(neighborhoodName));
-        if (neighborhoodDB.isPresent()) {
-            neighborhoodPersistencePort.deleteNeighborhood(neighborhoodName);
-        } else {
-            throw new NeighborhoodNotFoundException();
-        }
+        neighborhoodPersistencePort.deleteNeighborhood(neighborhoodName);
     }
 
     /**
