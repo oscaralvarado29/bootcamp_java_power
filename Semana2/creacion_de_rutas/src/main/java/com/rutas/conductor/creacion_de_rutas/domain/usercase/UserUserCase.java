@@ -30,13 +30,9 @@ public class UserUserCase implements IUserServicePort {
         EmailValidator emailValidator = new EmailValidator();
         String passwordPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[“*_-])(?=.*[a-zA-Z]).{8,15}$";
         List<Character> specialCharactersNotAllowed = List.of('!', '"', '#', '$', '%', '&', '/', '(', ')', '=', '?', '¡', '¿', '¨', '^', '´', '`', '+', '{', '}', '[', ']', 'ç', 'Ç', 'º', 'ª', '°', '¬', '|', '·', '>', '<', ';', ':', ',', '.', ' ','@','\\');
-        Optional<User> userInDB = Optional.ofNullable(userPersistencePort.findByUserEmail(user.getUserEmail()));
 
         if (!emailValidator.isValid(user.getUserEmail(), null)) {
             throw new EmailInvalidFormatException();
-        }
-        if (userInDB.isPresent()) {
-            throw new UserAlreadyExistsException();
         }
         if (user.getUserName() == null || user.getUserSurname() == null || user.getUserPhone() == null || user.getUserAddress() == null || user.getUserPassword() == null || user.getUserEmail() == null) {
             throw new MissingMandatoryDataException();
@@ -100,10 +96,6 @@ public class UserUserCase implements IUserServicePort {
      */
     @Override
     public void deleteUser(String userEmail) {
-        Optional<User> userInDB = Optional.ofNullable(userPersistencePort.findByUserEmail(userEmail));
-        if (userInDB.isEmpty()) {
-            throw new UserNotFoundException();
-        }
         userPersistencePort.deleteUser(userEmail);
     }
 

@@ -26,12 +26,8 @@ public class RouteUserCase implements IRouteServicePort {
     }
 
     private void validationOfComplianceWithTheRequirementsForSaveRoute(Route route) {
-        Optional<Route> routeDB = Optional.ofNullable(routePersistencePort.getRoute(route.getRouteId()));
         int numberStops = route.getStops().size();
 
-        if (routeDB.isPresent()) {
-            throw new RouteAlreadyExistsException();
-        }
         if (!route.getOrigin().equals(route.getStops().get(0)) ) {
             throw new OriginIsNotTheFirstStopException();
         }
@@ -96,10 +92,6 @@ public class RouteUserCase implements IRouteServicePort {
      */
     @Override
     public void deleteRoute(Long routeId) {
-        Optional<Route> routeDB = Optional.ofNullable(routePersistencePort.getRoute(routeId));
-        if (routeDB.isEmpty()) {
-            throw new RouteNotFoudException();
-        }
         routePersistencePort.deleteRoute(routeId);
     }
 
