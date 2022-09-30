@@ -4,7 +4,7 @@ import com.rutas.conductor.creacion_de_rutas.domain.model.Travel;
 
 import java.util.List;
 
-public interface ITravelPersistancePort {
+public interface ITravelPersistencePort {
     void saveTravel(Travel travel);
     void updateTravel(Travel travel);
     void deleteTravel(Long travelId);

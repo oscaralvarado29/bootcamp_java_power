@@ -1,16 +1,17 @@
 package com.rutas.conductor.creacion_de_rutas.domain.model;
 
 import java.util.Date;
+import java.util.Map;
 
 public class Travel {
     private Long travelId;
     private Long routeId;
-    private Date travelDate;
+    private Map<String, String> travelDates;
 
-    public Travel(Long travelId, Long routeId, Date travelDate) {
+    public Travel(Long travelId, Long routeId, Map<String, String> travelDates) {
         this.travelId = travelId;
         this.routeId = routeId;
-        this.travelDate = travelDate;
+        this.travelDates = travelDates;
     }
 
     public Long getTravelId() {
@@ -29,11 +30,11 @@ public class Travel {
         this.routeId = routeId;
     }
 
-    public Date getTravelDate() {
-        return travelDate;
+    public Map<String, String> getTravelDates() {
+        return travelDates;
     }
 
-    public void setTravelDate(Date travelDate) {
-        this.travelDate = travelDate;
+    public void setTravelDates(Map<String, String> travelDates) {
+        this.travelDates = travelDates;
     }
 }
