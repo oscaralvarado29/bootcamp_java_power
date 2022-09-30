@@ -39,11 +39,11 @@ public class NeighborhoodUserCase implements INeighborhoodServicePort {
      */
     @Override
     public void updateNeighborhood(Neighborhood neighborhood) {
-        Neighborhood neighborhoodToUpdate = validationOfComplianceWithTheRequirementsToBeUpdate(neighborhood);
+        Neighborhood neighborhoodToUpdate = validationOfComplianceWithTheRequirementsForUpdateNeighborhood(neighborhood);
         neighborhoodPersistencePort.updateNeighborhood(neighborhoodToUpdate);
     }
 
-    private Neighborhood validationOfComplianceWithTheRequirementsToBeUpdate(Neighborhood neighborhood) {
+    private Neighborhood validationOfComplianceWithTheRequirementsForUpdateNeighborhood(Neighborhood neighborhood) {
         if (neighborhood.getNeighborhoodName() != null) {
             Optional<Neighborhood> neighborhoodDB = Optional.ofNullable(neighborhoodPersistencePort.findNeighborhoodByName(neighborhood.getNeighborhoodName()));
             if (neighborhoodDB.isPresent()) {

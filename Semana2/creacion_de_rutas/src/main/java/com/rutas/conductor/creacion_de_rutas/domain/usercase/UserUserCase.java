@@ -22,11 +22,11 @@ public class UserUserCase implements IUserServicePort {
      */
     @Override
     public void saveUser(User user) {
-        validationOfComplianceWithTheRequirementsToBeSave(user);
+        validationOfComplianceWithTheRequirementsForSaveUser(user);
         userPersistencePort.saveUser(user);
     }
 
-    private void validationOfComplianceWithTheRequirementsToBeSave(User user) {
+    private void validationOfComplianceWithTheRequirementsForSaveUser(User user) {
         EmailValidator emailValidator = new EmailValidator();
         String passwordPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[“*_-])(?=.*[a-zA-Z]).{8,15}$";
         List<Character> specialCharactersNotAllowed = List.of('!', '"', '#', '$', '%', '&', '/', '(', ')', '=', '?', '¡', '¿', '¨', '^', '´', '`', '+', '{', '}', '[', ']', 'ç', 'Ç', 'º', 'ª', '°', '¬', '|', '·', '>', '<', ';', ':', ',', '.', ' ','@','\\');
@@ -58,11 +58,11 @@ public class UserUserCase implements IUserServicePort {
     @Override
     public void updateUser(User user) {
 
-        User userToUpdate = validationOfComplianceWithTheRequirementsToBeUpdate(user);
+        User userToUpdate = validationOfComplianceWithTheRequirementsForUpdateUser(user);
         userPersistencePort.updateUser(userToUpdate);
     }
 
-    private User validationOfComplianceWithTheRequirementsToBeUpdate(User user) {
+    private User validationOfComplianceWithTheRequirementsForUpdateUser(User user) {
         if (user.getUserEmail() != null) {
             Optional<User> newUser = Optional.ofNullable(userPersistencePort.findByUserEmail(user.getUserEmail()));
             if (newUser.isPresent()) {
