@@ -7,7 +7,6 @@ import com.rutas.conductor.creacion_de_rutas.domain.spi.IUserPersistencePort;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 
 import java.util.List;
-import java.util.Optional;
 
 public class UserUserCase implements IUserServicePort {
 

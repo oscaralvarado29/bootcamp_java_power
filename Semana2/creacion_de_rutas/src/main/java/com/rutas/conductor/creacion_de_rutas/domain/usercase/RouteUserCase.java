@@ -1,13 +1,11 @@
 package com.rutas.conductor.creacion_de_rutas.domain.usercase;
 
 import com.rutas.conductor.creacion_de_rutas.domain.api.IRouteServicePort;
-import com.rutas.conductor.creacion_de_rutas.domain.exceptions.DestinationIsNotTheLastStopException;
-import com.rutas.conductor.creacion_de_rutas.domain.exceptions.OriginIsNotTheFirstStopException;
+import com.rutas.conductor.creacion_de_rutas.domain.exceptions.QuotaNotValidException;
 import com.rutas.conductor.creacion_de_rutas.domain.model.Route;
 import com.rutas.conductor.creacion_de_rutas.domain.spi.IRoutePersistencePort;
 
 import java.util.List;
-import java.util.Optional;
 
 public class RouteUserCase implements IRouteServicePort {
 
@@ -27,14 +25,11 @@ public class RouteUserCase implements IRouteServicePort {
     }
 
     private void validationOfComplianceWithTheRequirementsForSaveRoute(Route route) {
-        int numberStops = route.getStops().size();
 
-        if (!route.getOrigin().equals(route.getStops().get(0)) ) {
-            throw new OriginIsNotTheFirstStopException();
+        if (route.getQuota() < 1 || route.getQuota() > 4) {
+            throw new QuotaNotValidException();
         }
-        if (route.getDestination().equals(route.getStops().get(numberStops - 1))) {
-            throw new DestinationIsNotTheLastStopException();
-        }
+
     }
 
 

@@ -19,9 +19,6 @@ public class TravelUserCase implements ITravelServicePort {
      */
     @Override
     public void saveTravel(Travel travel) {
-        if (travel.getTravelDates().size()==0){
-            throw new DateAndHourNotPresentException();
-        }
         travelPersistencePort.saveTravel(travel);
     }
 

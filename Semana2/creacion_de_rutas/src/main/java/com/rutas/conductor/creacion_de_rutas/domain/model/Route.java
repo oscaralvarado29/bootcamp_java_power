@@ -5,44 +5,18 @@ import java.util.List;
 public class Route {
     private Long routeId;
     private String description;
-    private String origin;
-    private String destination;
-    private List<String> stops;
-    private Long quota;
+    private Long originNeighborhood;
+    private Long destinationNeighborhood;
+    private Integer quota;
     private Long conductorId;
 
-    public Route(Long routeId, String description, String origin, String destination, List<String> stops, Long quota, Long conductorId) {
+    public Route(Long routeId, String description, Long originNeighborhood, Long destinationNeighborhood, Integer quota, Long conductorId, List<Long> travelDates) {
         this.routeId = routeId;
         this.description = description;
-        this.origin = origin;
-        this.destination = destination;
-        this.stops = stops;
+        this.originNeighborhood = originNeighborhood;
+        this.destinationNeighborhood = destinationNeighborhood;
         this.quota = quota;
         this.conductorId = conductorId;
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public List<String> getStops() {
-        return stops;
-    }
-
-    public void setStops(List<String> stops) {
-        this.stops = stops;
     }
 
     public Long getRouteId() {
@@ -61,11 +35,27 @@ public class Route {
         this.description = description;
     }
 
-    public Long getQuota() {
+    public Long getOriginNeighborhood() {
+        return originNeighborhood;
+    }
+
+    public void setOriginNeighborhood(Long originNeighborhood) {
+        this.originNeighborhood = originNeighborhood;
+    }
+
+    public Long getDestinationNeighborhood() {
+        return destinationNeighborhood;
+    }
+
+    public void setDestinationNeighborhood(Long destinationNeighborhood) {
+        this.destinationNeighborhood = destinationNeighborhood;
+    }
+
+    public Integer getQuota() {
         return quota;
     }
 
-    public void setQuota(Long quota) {
+    public void setQuota(Integer quota) {
         this.quota = quota;
     }
 

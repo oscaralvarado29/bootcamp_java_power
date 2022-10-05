@@ -5,9 +5,9 @@ public class RouteNeighborhood {
     private Long routeId;
     private Long neighborhoodId;
     private String meetingPoint;
-    private Byte position;
+    private Integer position;
 
-    public RouteNeighborhood(Long routeNeighborhoodId, Long routeId, Long neighborhoodId, String meetingPoint, Byte position) {
+    public RouteNeighborhood(Long routeNeighborhoodId, Long routeId, Long neighborhoodId, String meetingPoint, Integer position) {
         this.routeNeighborhoodId = routeNeighborhoodId;
         this.routeId = routeId;
         this.neighborhoodId = neighborhoodId;
@@ -47,11 +47,11 @@ public class RouteNeighborhood {
         this.meetingPoint = meetingPoint;
     }
 
-    public Byte getPosition() {
+    public Integer getPosition() {
         return position;
     }
 
-    public void setPosition(Byte position) {
+    public void setPosition(Integer position) {
         this.position = position;
     }
 }
