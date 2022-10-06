@@ -8,7 +8,7 @@ import java.util.List;
 public interface IRouteHandler {
     void saveRouteInDB(RouteRequest routeRequest);
     List<RouteResponse> getAllRoutesFromDB();
-    RouteResponse getRouteFromDB(Long id);
+    RouteResponse getRouteFromDBByName(String routeName);
     void deleteRouteInDB(String routeName);
     void updateRouteInDB(RouteRequest routeRequest);
 

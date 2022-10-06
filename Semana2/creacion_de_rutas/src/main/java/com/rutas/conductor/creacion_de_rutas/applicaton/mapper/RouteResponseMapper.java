@@ -24,6 +24,7 @@ public interface RouteResponseMapper{
     default RouteResponse toRouteResponse(Route route, Neighborhood origin, Neighborhood destination, List<RouteNeighborhood> stops, List<DatesRoute> travelDates){
 
         RouteResponse routeResponse = new RouteResponse();
+        routeResponse.setRouteName(route.getRouteName());
         routeResponse.setOrigin(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(origin));
         routeResponse.setDestination(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(destination));
         routeResponse.setStops(INSTANCEROUTENEIGHBORHOOD.toRouteNeighborhoodDtoList(stops));
@@ -34,6 +35,7 @@ public interface RouteResponseMapper{
     default List<RouteResponse> toRouteResponseList(List<Route> routeList, List<Neighborhood> neighborhoodList, List<RouteNeighborhood>routeNeighborhoodList, List<DatesRoute>datesRouteList){
         return routeList.stream().map(route ->  {
             RouteResponse routeResponse = new RouteResponse();
+            routeResponse.setRouteName(route.getRouteName());
             routeResponse.setOrigin(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(neighborhoodList.stream().filter(neighborhood -> neighborhood.getNeighborhoodId().equals(route.getOriginNeighborhood())).findFirst().orElse(null)));
             routeResponse.setDestination(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(neighborhoodList.stream().filter(neighborhood -> neighborhood.getNeighborhoodId().equals(route.getDestinationNeighborhood())).findFirst().orElse(null)));
             routeResponse.setStops(INSTANCEROUTENEIGHBORHOOD.toRouteNeighborhoodDtoList(routeNeighborhoodList.stream().filter(routeNeighborhood -> routeNeighborhood.getRouteId().equals(route.getRouteId())).collect(Collectors.toList())));

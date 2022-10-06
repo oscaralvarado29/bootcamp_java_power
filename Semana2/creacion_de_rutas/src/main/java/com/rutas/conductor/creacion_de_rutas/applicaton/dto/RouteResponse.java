@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class RouteResponse {
-
+    private String routeName;
     private NeighborhoodResponse origin;
     private NeighborhoodResponse destination;
     private List<RouteNeighborhoodDto> stops;

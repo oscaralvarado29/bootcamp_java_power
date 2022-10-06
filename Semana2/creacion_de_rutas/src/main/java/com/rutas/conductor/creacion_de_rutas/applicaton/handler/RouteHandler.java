@@ -53,12 +53,12 @@ public class RouteHandler implements IRouteHandler {
     }
 
     @Override
-    public RouteResponse getRouteFromDB(Long id) {
-        Route route = routeServicePort.getRoute(id);
+    public RouteResponse getRouteFromDBByName(String routeName) {
+        Route route = routeServicePort.findRouteByName(routeName);
         Neighborhood origin = neighborhoodServicePort.getNeighborhood(route.getOriginNeighborhood());
         Neighborhood destination = neighborhoodServicePort.getNeighborhood(route.getDestinationNeighborhood());
-        List<RouteNeighborhood> stops = routeNeighborhoodServicePort.findRouteNeighborhoodByRoute(id);
-        List<DatesRoute> datesRoute = datesRouteServicePort.findDatesRouteByRoute(id);
+        List<RouteNeighborhood> stops = routeNeighborhoodServicePort.findRouteNeighborhoodByRoute(route.getRouteId());
+        List<DatesRoute> datesRoute = datesRouteServicePort.findDatesRouteByRoute(route.getRouteId());
         return routeResponseMapper.toRouteResponse(route, origin, destination, stops, datesRoute);
     }
 
