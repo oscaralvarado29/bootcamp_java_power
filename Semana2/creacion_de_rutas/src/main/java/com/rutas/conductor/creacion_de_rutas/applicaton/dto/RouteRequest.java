@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 public class RouteRequest {
+    private String routeName;
     private String description;
     private RouteNeighborhood origin;
     private RouteNeighborhood destination;

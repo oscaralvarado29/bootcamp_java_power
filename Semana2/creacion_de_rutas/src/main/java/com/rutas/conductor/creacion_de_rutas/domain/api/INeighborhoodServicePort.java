@@ -10,6 +10,6 @@ public interface INeighborhoodServicePort {
     void deleteNeighborhood(String neighborhoodName);
 
     Neighborhood getNeighborhood(Long neighborhoodId);
-    Neighborhood findByName(String neighborhoodName);
+    Neighborhood findNeighborhoodByName(String neighborhoodName);
     List<Neighborhood> getAllNeighborhoods();
 }

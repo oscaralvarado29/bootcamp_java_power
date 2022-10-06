@@ -7,8 +7,8 @@ import java.util.List;
 public interface IRouteNeighborhoodPersistencePort {
     void saveRouteNeighborhood( RouteNeighborhood routeNeighborhood );
     void updateRouteNeighborhood( RouteNeighborhood routeNeighborhood );
-    void deleteRouteNeighborhood(Long routeNeighborhoodId);
+    void deleteRouteNeighborhoodByRoute(Long routeId);
     RouteNeighborhood getRouteNeighborhood(Long routeNeighborhoodId);
     List<RouteNeighborhood> getAllRouteNeighborhoods();
-
+    List<RouteNeighborhood> findRouteNeighborhoodByRoute(Long routeId);
 }

@@ -52,7 +52,7 @@ public class NeighborhoodUserCase implements INeighborhoodServicePort {
      * @return the neighborhood found
      */
     @Override
-    public Neighborhood findByName(String neighborhoodName) {
+    public Neighborhood findNeighborhoodByName(String neighborhoodName) {
         return neighborhoodPersistencePort.findByName(neighborhoodName);
     }
 

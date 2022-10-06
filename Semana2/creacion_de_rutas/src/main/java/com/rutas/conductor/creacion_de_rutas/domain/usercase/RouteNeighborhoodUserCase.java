@@ -31,11 +31,11 @@ public class RouteNeighborhoodUserCase implements IRouteNeighborhoodServicePort 
     }
 
     /**
-     * @param routeNeighborhoodId routeNeighborhoodId of routeNeighborhood to delete
+     * @param routeId routeNeighborhoodId of routeNeighborhood to delete
      */
     @Override
-    public void deleteRouteNeighborhood(Long routeNeighborhoodId) {
-        routeNeighborhoodPersistencePort.deleteRouteNeighborhood(routeNeighborhoodId);
+    public void deleteRouteNeighborhoodByRoute(Long routeId) {
+        routeNeighborhoodPersistencePort.deleteRouteNeighborhoodByRoute(routeId);
     }
 
     /**
@@ -53,5 +53,14 @@ public class RouteNeighborhoodUserCase implements IRouteNeighborhoodServicePort 
     @Override
     public List<RouteNeighborhood> getAllRouteNeighborhoods() {
         return routeNeighborhoodPersistencePort.getAllRouteNeighborhoods();
+    }
+
+    /**
+     * @param routeId
+     * @return all routeNeighborhoods of a route
+     */
+    @Override
+    public List<RouteNeighborhood> findRouteNeighborhoodByRoute(Long routeId) {
+        return routeNeighborhoodPersistencePort.findRouteNeighborhoodByRoute(routeId);
     }
 }

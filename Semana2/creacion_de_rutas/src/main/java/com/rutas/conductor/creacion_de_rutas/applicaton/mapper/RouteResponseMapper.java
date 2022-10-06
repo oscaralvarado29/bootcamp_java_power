@@ -10,6 +10,7 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -28,8 +29,17 @@ public interface RouteResponseMapper{
         routeResponse.setStops(INSTANCEROUTENEIGHBORHOOD.toRouteNeighborhoodDtoList(stops));
         routeResponse.setTravelDates(INSTANCEDATESROUTE.toDateDtoList(travelDates));
         routeResponse.setQuota(route.getQuota());
-
-        //route.getNeighborhoods().stream().map(NeighborhoodResponseMapper::toNeighborhoodResponse).collect(Collectors.toList()));
         return routeResponse;
+    }
+    default List<RouteResponse> toRouteResponseList(List<Route> routeList, List<Neighborhood> neighborhoodList, List<RouteNeighborhood>routeNeighborhoodList, List<DatesRoute>datesRouteList){
+        return routeList.stream().map(route ->  {
+            RouteResponse routeResponse = new RouteResponse();
+            routeResponse.setOrigin(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(neighborhoodList.stream().filter(neighborhood -> neighborhood.getNeighborhoodId().equals(route.getOriginNeighborhood())).findFirst().orElse(null)));
+            routeResponse.setDestination(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(neighborhoodList.stream().filter(neighborhood -> neighborhood.getNeighborhoodId().equals(route.getDestinationNeighborhood())).findFirst().orElse(null)));
+            routeResponse.setStops(INSTANCEROUTENEIGHBORHOOD.toRouteNeighborhoodDtoList(routeNeighborhoodList.stream().filter(routeNeighborhood -> routeNeighborhood.getRouteId().equals(route.getRouteId())).collect(Collectors.toList())));
+            routeResponse.setTravelDates(INSTANCEDATESROUTE.toDateDtoList(datesRouteList.stream().filter(datesRoute -> datesRoute.getRouteId().equals(route.getRouteId())).collect(Collectors.toList())));
+            routeResponse.setQuota(route.getQuota());
+            return routeResponse;
+        }).collect(Collectors.toList());
     }
 }

@@ -1,17 +1,17 @@
 package com.rutas.conductor.creacion_de_rutas.domain.model;
 
-import java.util.List;
-
 public class Route {
     private Long routeId;
+    private String routeName;
     private String description;
     private Long originNeighborhood;
     private Long destinationNeighborhood;
     private Integer quota;
     private Long conductorId;
 
-    public Route(Long routeId, String description, Long originNeighborhood, Long destinationNeighborhood, Integer quota, Long conductorId, List<Long> travelDates) {
+    public Route(Long routeId, String routeName, String description, Long originNeighborhood, Long destinationNeighborhood, Integer quota, Long conductorId) {
         this.routeId = routeId;
+        this.routeName = routeName;
         this.description = description;
         this.originNeighborhood = originNeighborhood;
         this.destinationNeighborhood = destinationNeighborhood;
@@ -25,6 +25,14 @@ public class Route {
 
     public void setRouteId(Long routeId) {
         this.routeId = routeId;
+    }
+
+    public String getRouteName() {
+        return routeName;
+    }
+
+    public void setRouteName(String routeName) {
+        this.routeName = routeName;
     }
 
     public String getDescription() {

@@ -9,5 +9,6 @@ public interface IUserServicePort {
     void updateUser(User user);
     void deleteUser(String userEmail);
     User findUserByEmail(String userEmail);
+    User getUser(Long id);
     List<User> getAllUsers();
 }

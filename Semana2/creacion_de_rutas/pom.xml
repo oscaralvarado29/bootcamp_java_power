@@ -11,7 +11,7 @@
 	<groupId>com.rutas.conductor</groupId>
 	<artifactId>creacion_de_rutas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>creacion_de_rutas</name>
+	<routeName>creacion_de_rutas</routeName>
 	<description>Proyecto para la creación de las rutas que tendrán de los viajes que realizará un conductor</description>
 	<properties>
 		<java.version>11</java.version>

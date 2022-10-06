@@ -9,6 +9,7 @@ public interface IUserPersistencePort {
     void updateUser(User user);
     void deleteUser(String userEmail);
     User findByUserEmail(String userEmail);
+    User getUser(Long id);
     List<User> getAllUsers();
 
 }

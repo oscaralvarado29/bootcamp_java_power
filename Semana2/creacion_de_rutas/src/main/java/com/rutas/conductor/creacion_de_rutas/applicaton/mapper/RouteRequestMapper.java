@@ -16,6 +16,8 @@ import java.util.List;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface RouteRequestMapper {
 
+    @Mapping(target = "originNeighborhood",source = "origin.neighborhoodId")
+    @Mapping(target = "destinationNeighborhood",source = "destination.neighborhoodId")
     Route toRoute(RouteRequest routeRequest);
 
     default List<RouteNeighborhood> toRouteNeighborhoodList(RouteRequest routeRequest){

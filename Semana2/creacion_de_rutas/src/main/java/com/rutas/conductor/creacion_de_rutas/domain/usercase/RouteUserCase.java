@@ -17,11 +17,13 @@ public class RouteUserCase implements IRouteServicePort {
 
     /**
      * @param route Route to be saved
+     * @return
      */
     @Override
-    public void saveRoute(Route route) {
+    public Route saveRoute(Route route) {
         validationOfComplianceWithTheRequirementsForSaveRoute(route);
         routePersistencePort.saveRoute(route);
+        return route;
     }
 
     private void validationOfComplianceWithTheRequirementsForSaveRoute(Route route) {
@@ -56,6 +58,15 @@ public class RouteUserCase implements IRouteServicePort {
     @Override
     public Route getRoute(Long routeId) {
         return routePersistencePort.getRoute(routeId);
+    }
+
+    /**
+     * @param routeName
+     * @return
+     */
+    @Override
+    public Route findRouteByName(String routeName) {
+        return routePersistencePort.findRouteByName(routeName);
     }
 
     /**

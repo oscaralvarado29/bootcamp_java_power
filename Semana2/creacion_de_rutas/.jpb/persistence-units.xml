@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PersistenceUnitSettings">
+  <component routeName="PersistenceUnitSettings">
     <persistence-units>
-      <persistence-unit name="Default">
+      <persistence-unit routeName="Default">
         <packages>
           <package value="com.rutas.conductor.creacion_de_rutas" />
         </packages>

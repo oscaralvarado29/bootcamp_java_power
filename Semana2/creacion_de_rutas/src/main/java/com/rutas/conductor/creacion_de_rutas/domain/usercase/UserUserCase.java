@@ -73,6 +73,15 @@ public class UserUserCase implements IUserServicePort {
     }
 
     /**
+     * @param id
+     * @return
+     */
+    @Override
+    public User getUser(Long id) {
+        return userPersistencePort.getUser(id);
+    }
+
+    /**
      * @return list of all users
      */
     @Override
