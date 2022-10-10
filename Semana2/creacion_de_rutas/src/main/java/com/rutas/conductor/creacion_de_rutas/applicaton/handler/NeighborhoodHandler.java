@@ -6,6 +6,7 @@ import com.rutas.conductor.creacion_de_rutas.applicaton.mapper.NeighborhoodReque
 import com.rutas.conductor.creacion_de_rutas.applicaton.mapper.NeighborhoodResponseMapper;
 import com.rutas.conductor.creacion_de_rutas.domain.api.INeighborhoodServicePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +14,16 @@ import java.util.List;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class NeighborhoodHandler implements INeighborhoodHandler{
     private final INeighborhoodServicePort neighborhoodServicePort;
     private final NeighborhoodRequestMapper neighborhoodRequestMapper;
     private final NeighborhoodResponseMapper neighborhoodResponseMapper;
+
+    public NeighborhoodHandler(INeighborhoodServicePort neighborhoodServicePort, NeighborhoodRequestMapper neighborhoodRequestMapper, NeighborhoodResponseMapper neighborhoodResponseMapper) {
+        this.neighborhoodServicePort = neighborhoodServicePort;
+        this.neighborhoodRequestMapper = neighborhoodRequestMapper;
+        this.neighborhoodResponseMapper = neighborhoodResponseMapper;
+    }
 
     @Override
     public void saveNeighborhoodInDB(NeighborhoodRequest neighborhoodRequest) {
@@ -27,11 +33,6 @@ public class NeighborhoodHandler implements INeighborhoodHandler{
     @Override
     public List<NeighborhoodResponse> getAllNeighborhoodsFromDB() {
         return neighborhoodResponseMapper.toNeighborhoodResponseList(neighborhoodServicePort.getAllNeighborhoods());
-    }
-
-    @Override
-    public NeighborhoodResponse getNeighborhoodFromDB(Long id) {
-        return neighborhoodResponseMapper.toNeighborhoodResponse(neighborhoodServicePort.getNeighborhood(id));
     }
 
     @Override

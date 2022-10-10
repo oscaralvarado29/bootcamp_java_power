@@ -11,7 +11,4 @@ public class UserResponse {
     private Long userPhone;
     private String userAddress;
     private String userEmail;
-
-    public static class RouteNeighborhoodDto {
-    }
 }

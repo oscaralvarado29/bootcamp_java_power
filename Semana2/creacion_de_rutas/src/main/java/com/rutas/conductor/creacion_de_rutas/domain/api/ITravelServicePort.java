@@ -5,9 +5,11 @@ import com.rutas.conductor.creacion_de_rutas.domain.model.Travel;
 import java.util.List;
 
 public interface ITravelServicePort {
-    void saveTravel(Travel travel);
+    void saveTravel(List<Travel> travel);
     void updateTravel(Travel travel);
-    void deleteTravel(Long travelId);
-    Travel getTravel(Long travelId);
-    List<Travel> getAllTravels();
+    void deleteTravelsOfARoute(Long routeId);
+    void deleteTravel(Long routeId, String date);
+    List<Travel> findTravelByRoute(Long  routeId);
+    List<Travel> getAllTravel();
+
 }

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DatesRouteDto {
+public class TravelDto {
     private String fecha;
     private String hora;
 }

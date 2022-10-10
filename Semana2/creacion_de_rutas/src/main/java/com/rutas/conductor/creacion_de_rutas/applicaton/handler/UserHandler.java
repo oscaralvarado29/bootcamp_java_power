@@ -13,11 +13,16 @@ import java.util.List;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class UserHandler implements IUserHandler {
     private final IUserServicePort userServicePort;
     private final UserRequestMapper userRequestMapper;
     private final UserResponseMapper userResponseMapper;
+
+    public UserHandler(IUserServicePort userServicePort, UserRequestMapper userRequestMapper, UserResponseMapper userResponseMapper) {
+        this.userServicePort = userServicePort;
+        this.userRequestMapper = userRequestMapper;
+        this.userResponseMapper = userResponseMapper;
+    }
 
     @Override
     public void saveUserInDB(UserRequest userRequest) {

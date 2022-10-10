@@ -9,6 +9,7 @@ public class Route {
     private Integer quota;
     private Long conductorId;
 
+    public Route(){}
     public Route(Long routeId, String routeName, String description, Long originNeighborhood, Long destinationNeighborhood, Integer quota, Long conductorId) {
         this.routeId = routeId;
         this.routeName = routeName;

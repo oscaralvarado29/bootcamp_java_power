@@ -10,6 +10,7 @@ public interface IRouteHandler {
     List<RouteResponse> getAllRoutesFromDB();
     RouteResponse getRouteFromDBByName(String routeName);
     void deleteRouteInDB(String routeName);
+    void deleteTravelInDB(String routeName, String travelDate);
     void updateRouteInDB(RouteRequest routeRequest);
 
 }

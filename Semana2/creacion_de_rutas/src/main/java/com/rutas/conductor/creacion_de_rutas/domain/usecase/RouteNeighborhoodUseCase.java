@@ -1,4 +1,4 @@
-package com.rutas.conductor.creacion_de_rutas.domain.usercase;
+package com.rutas.conductor.creacion_de_rutas.domain.usecase;
 
 import com.rutas.conductor.creacion_de_rutas.domain.api.IRouteNeighborhoodServicePort;
 import com.rutas.conductor.creacion_de_rutas.domain.model.RouteNeighborhood;
@@ -6,11 +6,11 @@ import com.rutas.conductor.creacion_de_rutas.domain.spi.IRouteNeighborhoodPersis
 
 import java.util.List;
 
-public class RouteNeighborhoodUserCase implements IRouteNeighborhoodServicePort {
+public class RouteNeighborhoodUseCase implements IRouteNeighborhoodServicePort {
 
     private final IRouteNeighborhoodPersistencePort routeNeighborhoodPersistencePort;
 
-    public RouteNeighborhoodUserCase(IRouteNeighborhoodPersistencePort routeNeighborhoodPersistencePort) {
+    public RouteNeighborhoodUseCase(IRouteNeighborhoodPersistencePort routeNeighborhoodPersistencePort) {
         this.routeNeighborhoodPersistencePort = routeNeighborhoodPersistencePort;
     }
 

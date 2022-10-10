@@ -8,7 +8,6 @@ import java.util.List;
 public interface INeighborhoodHandler {
     void saveNeighborhoodInDB(NeighborhoodRequest neighborhoodRequest);
     List<NeighborhoodResponse> getAllNeighborhoodsFromDB();
-    NeighborhoodResponse getNeighborhoodFromDB(Long id);
     NeighborhoodResponse getNeighborhoodFromDBByName(String name);
     void deleteNeighborhoodInDB(String name);
     void updateNeighborhoodInDB(NeighborhoodRequest neighborhoodRequest);

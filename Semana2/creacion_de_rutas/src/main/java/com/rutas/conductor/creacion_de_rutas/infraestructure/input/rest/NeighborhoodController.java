@@ -2,7 +2,6 @@ package com.rutas.conductor.creacion_de_rutas.infraestructure.input.rest;
 
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.NeighborhoodRequest;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.NeighborhoodResponse;
-import com.rutas.conductor.creacion_de_rutas.applicaton.dto.UserResponse;
 import com.rutas.conductor.creacion_de_rutas.applicaton.handler.INeighborhoodHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -46,7 +45,7 @@ public class NeighborhoodController {
             @ApiResponse(responseCode = "200", description = "All neighborhoods returned",
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = NeighborhoodResponse.class)))),
-            @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "UserEntity not found", content = @Content)
     })
     @GetMapping("/getAll")
     public ResponseEntity<List<NeighborhoodResponse>> getAllNeighborhoodsFromDB(){

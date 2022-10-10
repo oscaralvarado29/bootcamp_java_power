@@ -1,4 +1,4 @@
-package com.rutas.conductor.creacion_de_rutas.domain.usercase;
+package com.rutas.conductor.creacion_de_rutas.domain.usecase;
 
 import com.rutas.conductor.creacion_de_rutas.domain.api.IUserServicePort;
 import com.rutas.conductor.creacion_de_rutas.domain.exceptions.*;
@@ -8,16 +8,16 @@ import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 
 import java.util.List;
 
-public class UserUserCase implements IUserServicePort {
+public class UserUseCase implements IUserServicePort {
 
     private final IUserPersistencePort userPersistencePort;
 
-    public UserUserCase(IUserPersistencePort userPersistencePort) {
+    public UserUseCase(IUserPersistencePort userPersistencePort) {
         this.userPersistencePort = userPersistencePort;
     }
 
     /**
-     * @param user User to be saved
+     * @param user UserEntity to be saved
      */
     @Override
     public void saveUser(User user) {
@@ -65,7 +65,7 @@ public class UserUserCase implements IUserServicePort {
 
     /**
      * @param userEmail email of the user to find
-     * @return User with the email passed by parameter
+     * @return UserEntity with the email passed by parameter
      */
     @Override
     public User findUserByEmail(String userEmail) {
@@ -73,8 +73,8 @@ public class UserUserCase implements IUserServicePort {
     }
 
     /**
-     * @param id
-     * @return
+     * @param id id of the user to find
+     * @return user with the id passed by parameter
      */
     @Override
     public User getUser(Long id) {

@@ -6,6 +6,7 @@ public class Neighborhood {
     private String neighborhoodName;
     private String neighborhoodDescription;
 
+    public Neighborhood(){}
     public Neighborhood(Long neighborhoodId, String neighborhoodName, String neighborhoodDescription) {
         this.neighborhoodId = neighborhoodId;
         this.neighborhoodName = neighborhoodName;

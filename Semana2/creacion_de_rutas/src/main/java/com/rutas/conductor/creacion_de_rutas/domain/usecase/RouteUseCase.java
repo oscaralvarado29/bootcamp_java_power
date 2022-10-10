@@ -1,4 +1,4 @@
-package com.rutas.conductor.creacion_de_rutas.domain.usercase;
+package com.rutas.conductor.creacion_de_rutas.domain.usecase;
 
 import com.rutas.conductor.creacion_de_rutas.domain.api.IRouteServicePort;
 import com.rutas.conductor.creacion_de_rutas.domain.exceptions.QuotaNotValidException;
@@ -7,16 +7,16 @@ import com.rutas.conductor.creacion_de_rutas.domain.spi.IRoutePersistencePort;
 
 import java.util.List;
 
-public class RouteUserCase implements IRouteServicePort {
+public class RouteUseCase implements IRouteServicePort {
 
     private final IRoutePersistencePort routePersistencePort;
 
-    public RouteUserCase(IRoutePersistencePort routePersistencePort) {
+    public RouteUseCase(IRoutePersistencePort routePersistencePort) {
         this.routePersistencePort = routePersistencePort;
     }
 
     /**
-     * @param route Route to be saved
+     * @param route RouteEntity to be saved
      * @return
      */
     @Override
@@ -41,23 +41,6 @@ public class RouteUserCase implements IRouteServicePort {
     @Override
     public void updateRoute(Route route) {
         routePersistencePort.updateRoute(route);
-    }
-
-    /**
-     * @param routeId routeId of route to delete
-     */
-    @Override
-    public void deleteRoute(Long routeId) {
-        routePersistencePort.deleteRoute(routeId);
-    }
-
-    /**
-     * @param routeId route id to get route
-     * @return Route with routeId
-     */
-    @Override
-    public Route getRoute(Long routeId) {
-        return routePersistencePort.getRoute(routeId);
     }
 
     /**

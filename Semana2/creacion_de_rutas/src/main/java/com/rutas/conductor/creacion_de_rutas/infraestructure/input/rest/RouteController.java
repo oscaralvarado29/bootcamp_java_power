@@ -86,4 +86,9 @@ public class RouteController {
         routeHandler.deleteRouteInDB(routeName);
         return ResponseEntity.noContent().build();
     }
+    @DeleteMapping  ("/deleteTravel/{routeName}/{travelDate}")
+    public ResponseEntity<Void> deleteTravelInDB(@PathVariable String routeName, @PathVariable String travelDate){
+        routeHandler.deleteTravelInDB(routeName, travelDate);
+        return ResponseEntity.noContent().build();
+    }
 }
