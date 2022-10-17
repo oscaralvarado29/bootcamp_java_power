@@ -3,7 +3,9 @@ package com.rutas.conductor.creacion_de_rutas.infraestructure.output.jpa.adapter
 import com.rutas.conductor.creacion_de_rutas.domain.model.Neighborhood;
 import com.rutas.conductor.creacion_de_rutas.domain.spi.INeighborhoodPersistencePort;
 import com.rutas.conductor.creacion_de_rutas.infraestructure.exception.NeighborhoodAlreadyExistsException;
+import com.rutas.conductor.creacion_de_rutas.infraestructure.exception.NeighborhoodNameNotPresentException;
 import com.rutas.conductor.creacion_de_rutas.infraestructure.exception.NeighborhoodNotFoundException;
+import com.rutas.conductor.creacion_de_rutas.infraestructure.output.jpa.entity.NeighborhoodEntity;
 import com.rutas.conductor.creacion_de_rutas.infraestructure.output.jpa.mapper.INeighborhoodEntityMapper;
 import com.rutas.conductor.creacion_de_rutas.infraestructure.output.jpa.repository.INeighborhoodRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +27,16 @@ public class NeighborhoodJpaAdapter implements INeighborhoodPersistencePort {
 
     @Override
     public void updateNeighborhood(Neighborhood neighborhood) {
-        if (neighborhoodRepository.findByNeighborhoodName(neighborhood.getNeighborhoodName()).isEmpty()) {
-            throw new NeighborhoodNotFoundException();
+        if (neighborhood.getNeighborhoodName()!= null){
+            NeighborhoodEntity neighborhoodToUpdate = neighborhoodRepository.findByNeighborhoodName(neighborhood.getNeighborhoodName()).orElseThrow(NeighborhoodNotFoundException::new);
+            if (neighborhood.getNeighborhoodDescription() != null) {
+                neighborhoodToUpdate.setNeighborhoodDescription(neighborhood.getNeighborhoodDescription());
+            }
+            neighborhoodRepository.save(neighborhoodToUpdate);
+        } else {
+            throw new NeighborhoodNameNotPresentException();
         }
-        neighborhoodRepository.save(neighborhoodEntityMapper.toNeighborhoodEntity(neighborhood));
+
     }
 
     @Override
@@ -41,16 +49,18 @@ public class NeighborhoodJpaAdapter implements INeighborhoodPersistencePort {
 
     @Override
     public Neighborhood getNeighborhood(Long neighborhoodId) {
-        return null;
+        NeighborhoodEntity neighborhoodInDB = neighborhoodRepository.findById(neighborhoodId).orElseThrow(NeighborhoodNotFoundException::new);
+        return neighborhoodEntityMapper.toNeighborhood(neighborhoodInDB);
     }
 
     @Override
-    public Neighborhood findByName(String neighborhoodName) {
-        return null;
+    public  Neighborhood  findByName(String neighborhoodName) {
+        NeighborhoodEntity neighborhoodInDB = neighborhoodRepository.findByNeighborhoodName(neighborhoodName).orElseThrow(NeighborhoodNotFoundException::new);
+        return neighborhoodEntityMapper.toNeighborhood(neighborhoodInDB);
     }
 
     @Override
     public List<Neighborhood> getAllNeighborhoods() {
-        return null;
+        return neighborhoodEntityMapper.toNeighborhoodList(neighborhoodRepository.findAll());
     }
 }

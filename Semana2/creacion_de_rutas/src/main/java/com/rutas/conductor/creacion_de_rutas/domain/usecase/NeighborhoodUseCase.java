@@ -40,7 +40,7 @@ public class NeighborhoodUseCase implements INeighborhoodServicePort {
 
     /**
      *
-     * @param neighborhoodId
+     * @param neighborhoodId the id of the neighborhood to be found
      * @return the neighborhood found
      */
     @Override

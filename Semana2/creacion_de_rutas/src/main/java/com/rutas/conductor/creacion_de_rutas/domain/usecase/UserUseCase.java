@@ -28,7 +28,7 @@ public class UserUseCase implements IUserServicePort {
     private void validationOfComplianceWithTheRequirementsForSaveUser(User user) {
         EmailValidator emailValidator = new EmailValidator();
         String passwordPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[“*_-])(?=.*[a-zA-Z]).{8,15}$";
-        List<Character> specialCharactersNotAllowed = List.of('!', '"', '#', '$', '%', '&', '/', '(', ')', '=', '?', '¡', '¿', '¨', '^', '´', '`', '+', '{', '}', '[', ']', 'ç', 'Ç', 'º', 'ª', '°', '¬', '|', '·', '>', '<', ';', ':', ',', '.', ' ','@','\\');
+        List<Character> specialCharactersNotAllowed = List.of('!', '"', '#', '$', '%', '&', '/', '(', ')', '=', '?', '¡', '¿', '¨', '^', '´', '`', '+', '{', '}', '[', ']', 'ç', 'Ç', 'º', 'ª', '°', '¬', '|', '·', '>', '<', ';', ':', ',', '.', ' ','@','\\','~','_', '-', 'ñ', 'Ñ', 'á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú', 'à', 'è', 'ì', 'ò', 'ù', 'À', 'È', 'Ì', 'Ò', 'Ù', 'ä', 'ë', 'ï', 'ö', 'ü', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü');
 
         if (!emailValidator.isValid(user.getUserEmail(), null)) {
             throw new EmailInvalidFormatException();
@@ -37,11 +37,11 @@ public class UserUseCase implements IUserServicePort {
             throw new MissingMandatoryDataException();
         }
         if (!user.getUserPassword().matches(passwordPattern)) {
-            throw new PasswordInvalidException();
+            throw new PasswordInvalidFormatException();
         } else{
             for (Character character : specialCharactersNotAllowed) {
                 if (user.getUserPassword().contains(character.toString())) {
-                    throw new PasswordInvalidException();
+                    throw new PasswordInvalidFormatException();
                 }
             }
         }

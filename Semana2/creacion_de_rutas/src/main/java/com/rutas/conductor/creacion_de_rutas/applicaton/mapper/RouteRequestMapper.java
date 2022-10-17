@@ -19,8 +19,6 @@ public interface RouteRequestMapper {
         Route route = new Route();
         route.setRouteName(routeRequest.getRouteName());
         route.setDescription(routeRequest.getDescription());
-        route.setOriginNeighborhood(routeRequest.getOrigin().getRouteId());
-        route.setDestinationNeighborhood(routeRequest.getDestination().getRouteId());
         route.setQuota(routeRequest.getQuota());
         route.setConductorId(routeRequest.getConductorId());
         return route;
@@ -28,9 +26,17 @@ public interface RouteRequestMapper {
 
     default List<RouteNeighborhood> toRouteNeighborhoodList(RouteRequest routeRequest){
         List<RouteNeighborhood> routeNeighborhoods = new ArrayList<>();
-        routeNeighborhoods.add(routeRequest.getOrigin());
+        RouteNeighborhood origin = routeRequest.getOrigin();
+        origin.setPosition(1);
+        routeNeighborhoods.add(origin);
         routeNeighborhoods.addAll(routeRequest.getStops());
-        routeNeighborhoods.add(routeRequest.getDestination());
+        RouteNeighborhood destination = routeRequest.getDestination();
+        destination.setPosition(routeRequest.getStops().size()+1);
+        routeNeighborhoods.add(destination);
+        System.out.println("los id de las paradas quedaron: ");
+        for(RouteNeighborhood routeNeighborhood: routeNeighborhoods){
+            System.out.println(routeNeighborhood.getNeighborhoodId());
+        }
         return routeNeighborhoods;
     }
 

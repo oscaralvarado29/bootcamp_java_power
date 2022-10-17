@@ -20,6 +20,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class RouteHandler implements IRouteHandler {
     private final IRouteServicePort routeServicePort;
     private final ITravelServicePort travelServicePort;
@@ -28,27 +29,23 @@ public class RouteHandler implements IRouteHandler {
     private final RouteRequestMapper routeRequestMapper;
     private final RouteResponseMapper routeResponseMapper;
 
-    public RouteHandler(RouteRequestMapper routeRequestMapper, IRouteServicePort routeServicePort, ITravelServicePort travelServicePort, IRouteNeighborhoodServicePort routeNeighborhoodServicePort, INeighborhoodServicePort neighborhoodServicePort,  RouteResponseMapper routeResponseMapper) {
-        this.routeServicePort = routeServicePort;
-        this.travelServicePort = travelServicePort;
-        this.routeNeighborhoodServicePort = routeNeighborhoodServicePort;
-        this.neighborhoodServicePort = neighborhoodServicePort;
-        this.routeRequestMapper = routeRequestMapper;
-        this.routeResponseMapper = routeResponseMapper;
-    }
 
     @Override
     public void saveRouteInDB(RouteRequest routeRequest) {
-        Route route = routeServicePort.saveRoute(routeRequestMapper.toRoute(routeRequest));
+        routeServicePort.saveRoute(routeRequestMapper.toRoute(routeRequest));
+        Route route = routeServicePort.findRouteByName(routeRequest.getRouteName());
+        Long routeId = route.getRouteId();
         List<RouteNeighborhood> neighborhoodList = routeRequestMapper.toRouteNeighborhoodList(routeRequest);
         List<Travel> travelList = routeRequestMapper.toDatesRouteList(routeRequest);
         for (RouteNeighborhood routeNeighborhood : neighborhoodList) {
-            routeNeighborhood.setRouteId(route.getRouteId());
-            routeNeighborhoodServicePort.saveRouteNeighborhood(routeNeighborhood);
+            routeNeighborhood.setRouteId(routeId);
+            System.out.println("el id de la ruta es: " + routeId);
         }
         for (Travel travel : travelList) {
             travel.setRouteId(route.getRouteId());
+            System.out.println("el id de la ruta es: " + route.getRouteId());
         }
+        routeNeighborhoodServicePort.saveRouteNeighborhood(neighborhoodList);
         travelServicePort.saveTravel(travelList);
     }
 
@@ -84,18 +81,21 @@ public class RouteHandler implements IRouteHandler {
     @Override
     public void updateRouteInDB(RouteRequest routeRequest) {
         Route oldRoute = routeServicePort.findRouteByName(routeRequest.getRouteName());
-        List<RouteNeighborhood> newRouteNeighborhoods = routeRequestMapper.toRouteNeighborhoodList(routeRequest);
-        List<Travel> newTravel = routeRequestMapper.toDatesRouteList(routeRequest);
+        if (!routeRequest.getStops().isEmpty()) {
+            List<RouteNeighborhood> newRouteNeighborhoods = routeRequestMapper.toRouteNeighborhoodList(routeRequest);
+            for (RouteNeighborhood routeNeighborhood : newRouteNeighborhoods) {
+                routeNeighborhood.setRouteId(oldRoute.getRouteId());
+                routeNeighborhoodServicePort.updateRouteNeighborhood(routeNeighborhood);
+            }
+        }
+        if (!routeRequest.getTravelDates().isEmpty()) {
+            List<Travel> newTravels = routeRequestMapper.toDatesRouteList(routeRequest);
+            for (Travel travel : newTravels) {
+                travel.setRouteId(oldRoute.getRouteId());
+                travelServicePort.updateTravel(travel);
+            }
+        }
         Route newRoute = routeRequestMapper.toRoute(routeRequest);
-
-        for (RouteNeighborhood routeNeighborhood : newRouteNeighborhoods) {
-            routeNeighborhood.setRouteId(oldRoute.getRouteId());
-            routeNeighborhoodServicePort.updateRouteNeighborhood(routeNeighborhood);
-        }
-        for (Travel dateRoute : newTravel) {
-            dateRoute.setRouteId(oldRoute.getRouteId());
-            travelServicePort.updateTravel(dateRoute);
-        }
         newRoute.setRouteId(oldRoute.getRouteId());
         routeServicePort.updateRoute(newRoute);
     }

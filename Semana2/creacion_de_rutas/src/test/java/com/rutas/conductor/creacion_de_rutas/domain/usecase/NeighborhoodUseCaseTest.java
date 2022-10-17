@@ -8,9 +8,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
@@ -23,37 +22,42 @@ class NeighborhoodUseCaseTest {
 
     @Test
     void mustSaveNeighborhood() {
-        //Given
-        //yo como usuario hago la solictud para guardar un barrio
-        Neighborhood expectedNeighborhood = FactoryNeighborhoodDataTest.getNeighborhood();
         Neighborhood neighborhood = FactoryNeighborhoodDataTest.getNeighborhood();
-
-        //When
-        //le envio los valores correctamente
         neighborhoodPersistencePort.saveNeighborhood(neighborhood);
-
-        //Then
-        //el sistema e guarda un nuevo barrio
         verify(neighborhoodPersistencePort).saveNeighborhood(any(Neighborhood.class));
     }
 
     @Test
     void updateNeighborhood() {
+        Neighborhood neighborhood = FactoryNeighborhoodDataTest.getNeighborhood();
+        neighborhoodPersistencePort.updateNeighborhood(neighborhood);
+        verify(neighborhoodPersistencePort).updateNeighborhood(any(Neighborhood.class));
     }
 
     @Test
     void deleteNeighborhood() {
+        Neighborhood neighborhood = FactoryNeighborhoodDataTest.getNeighborhood();
+        neighborhoodPersistencePort.deleteNeighborhood(neighborhood.getNeighborhoodName());
+        verify(neighborhoodPersistencePort).deleteNeighborhood(neighborhood.getNeighborhoodName());
     }
 
     @Test
     void getNeighborhood() {
+        Neighborhood neighborhood = FactoryNeighborhoodDataTest.getNeighborhood();
+        neighborhoodPersistencePort.getNeighborhood(neighborhood.getNeighborhoodId());
+        verify(neighborhoodPersistencePort).getNeighborhood(neighborhood.getNeighborhoodId());
     }
 
     @Test
     void findNeighborhoodByName() {
+        Neighborhood neighborhood = FactoryNeighborhoodDataTest.getNeighborhood();
+        neighborhoodPersistencePort.findByName(neighborhood.getNeighborhoodName());
+        verify(neighborhoodPersistencePort).findByName(neighborhood.getNeighborhoodName());
     }
 
     @Test
     void getAllNeighborhoods() {
+        neighborhoodPersistencePort.getAllNeighborhoods();
+        verify(neighborhoodPersistencePort, times(1)).getAllNeighborhoods();
     }
 }

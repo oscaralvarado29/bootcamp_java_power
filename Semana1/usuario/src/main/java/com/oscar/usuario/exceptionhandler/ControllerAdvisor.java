@@ -14,7 +14,7 @@ public class ControllerAdvisor {
     private static final String MESSAGE = "message";
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Map<String, String>> userNotFound(UserNotFoundException userNotFoundException) {
+    public ResponseEntity<Map<String, String>> userNotFound() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap(MESSAGE, ExceptionResponse.USER_NOT_FOUND.getMessage()));
     }
 

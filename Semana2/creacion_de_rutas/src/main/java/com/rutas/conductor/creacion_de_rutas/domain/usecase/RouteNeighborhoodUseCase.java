@@ -1,10 +1,12 @@
 package com.rutas.conductor.creacion_de_rutas.domain.usecase;
 
 import com.rutas.conductor.creacion_de_rutas.domain.api.IRouteNeighborhoodServicePort;
+import com.rutas.conductor.creacion_de_rutas.domain.exceptions.RepeatedNeighborhoodsException;
 import com.rutas.conductor.creacion_de_rutas.domain.model.RouteNeighborhood;
 import com.rutas.conductor.creacion_de_rutas.domain.spi.IRouteNeighborhoodPersistencePort;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class RouteNeighborhoodUseCase implements IRouteNeighborhoodServicePort {
 
@@ -15,11 +17,30 @@ public class RouteNeighborhoodUseCase implements IRouteNeighborhoodServicePort {
     }
 
     /**
-     * @param routeNeighborhood routeNeighborhood to be saved
+     * @param routeNeighborhoodList routeNeighborhood list to be saved
      */
     @Override
-    public void saveRouteNeighborhood(RouteNeighborhood routeNeighborhood) {
-        routeNeighborhoodPersistencePort.saveRouteNeighborhood(routeNeighborhood);
+    public void saveRouteNeighborhood(List<RouteNeighborhood> routeNeighborhoodList) {
+        validationOfComplianceWithTheRequirementsForSaveRouteNeighborhood(routeNeighborhoodList);
+        for (RouteNeighborhood routeNeighborhood : routeNeighborhoodList) {
+            routeNeighborhoodPersistencePort.saveRouteNeighborhood(routeNeighborhood);
+        }
+    }
+
+    private void validationOfComplianceWithTheRequirementsForSaveRouteNeighborhood(List<RouteNeighborhood>  routeNeighborhoodList) {
+
+        List<Long> neighborhoodIdList = new ArrayList<>();
+        System.out.println("Ingresando a hacer la validacion de " + routeNeighborhoodList.size() + " elementos");
+        for (RouteNeighborhood routeNeighborhood : routeNeighborhoodList) {
+            System.out.println("Ingresando a hacer la validacion de " + routeNeighborhood.getNeighborhoodId());
+            if (!neighborhoodIdList.contains(routeNeighborhood.getNeighborhoodId())) {
+                System.out.println("Agregando el vecindario con id "+ routeNeighborhood.getNeighborhoodId() + " a la lista");
+                neighborhoodIdList.add(routeNeighborhood.getNeighborhoodId());
+            }
+        }
+        if (neighborhoodIdList.size() != routeNeighborhoodList.size()) {
+            throw new RepeatedNeighborhoodsException();
+        }
     }
 
     /**
@@ -56,7 +77,7 @@ public class RouteNeighborhoodUseCase implements IRouteNeighborhoodServicePort {
     }
 
     /**
-     * @param routeId
+     * @param routeId routeId of routeNeighborhood to get
      * @return all routeNeighborhoods of a route
      */
     @Override

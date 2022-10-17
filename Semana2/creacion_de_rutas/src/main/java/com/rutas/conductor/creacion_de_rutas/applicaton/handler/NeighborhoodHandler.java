@@ -14,16 +14,12 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class NeighborhoodHandler implements INeighborhoodHandler{
     private final INeighborhoodServicePort neighborhoodServicePort;
     private final NeighborhoodRequestMapper neighborhoodRequestMapper;
     private final NeighborhoodResponseMapper neighborhoodResponseMapper;
 
-    public NeighborhoodHandler(INeighborhoodServicePort neighborhoodServicePort, NeighborhoodRequestMapper neighborhoodRequestMapper, NeighborhoodResponseMapper neighborhoodResponseMapper) {
-        this.neighborhoodServicePort = neighborhoodServicePort;
-        this.neighborhoodRequestMapper = neighborhoodRequestMapper;
-        this.neighborhoodResponseMapper = neighborhoodResponseMapper;
-    }
 
     @Override
     public void saveNeighborhoodInDB(NeighborhoodRequest neighborhoodRequest) {

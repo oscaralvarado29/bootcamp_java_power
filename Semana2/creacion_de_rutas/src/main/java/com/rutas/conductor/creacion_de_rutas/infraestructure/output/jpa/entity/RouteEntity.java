@@ -23,8 +23,6 @@ public class RouteEntity {
     private Long routeId;
     private String routeName;
     private String description;
-    private Long originNeighborhood;
-    private Long destinationNeighborhood;
     private Integer quota;
     private Long conductorId;
 }

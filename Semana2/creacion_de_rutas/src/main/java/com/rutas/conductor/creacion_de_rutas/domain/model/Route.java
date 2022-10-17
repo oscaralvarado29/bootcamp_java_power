@@ -14,8 +14,6 @@ public class Route {
         this.routeId = routeId;
         this.routeName = routeName;
         this.description = description;
-        this.originNeighborhood = originNeighborhood;
-        this.destinationNeighborhood = destinationNeighborhood;
         this.quota = quota;
         this.conductorId = conductorId;
     }

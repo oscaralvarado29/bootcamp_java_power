@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -13,6 +14,7 @@ import java.util.List;
 public interface INeighborhoodEntityMapper {
     NeighborhoodEntity toNeighborhoodEntity(Neighborhood neighborhood);
     Neighborhood toNeighborhood(NeighborhoodEntity neighborhoodEntity);
+    Neighborhood toNeighborhoodOfOptional(Optional<NeighborhoodEntity> neighborhoodEntity);
     List<Neighborhood> toNeighborhoodList(List<NeighborhoodEntity> neighborhoodEntityList);
     List<NeighborhoodEntity> toNeighborhoodEntityList(List<Neighborhood> neighborhoodList);
 }

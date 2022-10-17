@@ -9,7 +9,6 @@ public interface ITravelPersistencePort {
     void updateTravel(Travel travel);
     void deleteTravelOfARoute(Long routeId);
     void deleteTravel(Long routeId, String date);
-    Travel getTravel(Long dateRouteId);
     List<Travel> findTravelByRoute(Long  routeId);
     List<Travel> getAllTravel();
 }
