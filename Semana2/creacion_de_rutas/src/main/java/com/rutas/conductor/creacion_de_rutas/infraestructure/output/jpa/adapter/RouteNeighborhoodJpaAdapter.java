@@ -41,12 +41,6 @@ public class RouteNeighborhoodJpaAdapter implements IRouteNeighborhoodPersistenc
     }
 
     @Override
-    public RouteNeighborhood getRouteNeighborhood(Long routeNeighborhoodId) {
-        RouteNeighborhoodEntity routeNeighborhoodInDB = routeNeighborhoodRepository.findById(routeNeighborhoodId).orElseThrow(RouteNeighborhoodNotFoundException::new);
-        return routeNeighborhoodEntityMapper.toRouteNeighborhood(routeNeighborhoodInDB);
-    }
-
-    @Override
     public List<RouteNeighborhood> getAllRouteNeighborhoods() {
         return routeNeighborhoodEntityMapper.toRouteNeighborhoodList(routeNeighborhoodRepository.findAll());
     }

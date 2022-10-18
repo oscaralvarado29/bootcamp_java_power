@@ -39,7 +39,7 @@ public interface RouteResponseMapper{
             routeResponse.setOrigin(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(neighborhoodList.stream().filter(neighborhood -> neighborhood.getNeighborhoodId().equals(route.getOriginNeighborhood())).findFirst().orElse(null)));
             routeResponse.setDestination(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(neighborhoodList.stream().filter(neighborhood -> neighborhood.getNeighborhoodId().equals(route.getDestinationNeighborhood())).findFirst().orElse(null)));
             routeResponse.setStops(INSTANCEROUTENEIGHBORHOOD.toRouteNeighborhoodDtoList(routeNeighborhoodList.stream().filter(routeNeighborhood -> routeNeighborhood.getRouteId().equals(route.getRouteId())).collect(Collectors.toList())));
-            routeResponse.setTravelDates(INSTANCEDATESROUTE.toDateDtoList(travelList.stream().filter(datesRoute -> datesRoute.getRouteId().equals(route.getRouteId())).collect(Collectors.toList())));
+            routeResponse.setTravelDates(INSTANCEDATESROUTE.toDateDtoList(travelList.stream().filter(travel -> travel.getRouteId().equals(route.getRouteId())).collect(Collectors.toList())));
             routeResponse.setQuota(route.getQuota());
             return routeResponse;
         }).collect(Collectors.toList());

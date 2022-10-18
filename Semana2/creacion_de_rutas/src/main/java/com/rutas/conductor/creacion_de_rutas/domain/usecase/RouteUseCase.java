@@ -44,6 +44,14 @@ public class RouteUseCase implements IRouteServicePort {
     }
 
     /**
+     * @param routeName route name to delete
+     */
+    @Override
+    public void deleteRoute(String routeName) {
+        routePersistencePort.deleteRoute(routeName);
+    }
+
+    /**
      * @param routeName
      * @return
      */

@@ -35,7 +35,7 @@ public class TravelJpaAdapter implements ITravelPersistencePort {
     }
 
     @Override
-    public void deleteTravelOfARoute(Long routeId) {
+    public void deleteTravelsOfARoute(Long routeId) {
         if (travelRepository.findByRouteId(routeId).isEmpty()) {
             throw new TravelNotFoundException();
         }

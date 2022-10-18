@@ -10,13 +10,23 @@ public class User {
     private String userEmail;
     private String userPassword;
 
-    public User(String userName, String userSurname, Long userPhone, String userAddress, String userEmail, String userPassword) {
+    public User(){}
+    public User(Long userId, String userName, String userSurname, Long userPhone, String userAddress, String userEmail, String userPassword) {
+        this.userId = userId;
         this.userName = userName;
         this.userSurname = userSurname;
         this.userPhone = userPhone;
         this.userAddress = userAddress;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {

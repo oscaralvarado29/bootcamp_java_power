@@ -8,7 +8,6 @@ public interface IRouteNeighborhoodPersistencePort {
     void saveRouteNeighborhood( RouteNeighborhood routeNeighborhood );
     void updateRouteNeighborhood( RouteNeighborhood routeNeighborhood );
     void deleteRouteNeighborhoodByRoute(Long routeId);
-    RouteNeighborhood getRouteNeighborhood(Long routeNeighborhoodId);
     List<RouteNeighborhood> getAllRouteNeighborhoods();
     List<RouteNeighborhood> findRouteNeighborhoodByRoute(Long routeId);
 }

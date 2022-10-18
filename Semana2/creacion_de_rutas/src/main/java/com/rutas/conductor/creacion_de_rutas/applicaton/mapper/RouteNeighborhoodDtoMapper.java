@@ -13,4 +13,5 @@ import java.util.List;
 public interface RouteNeighborhoodDtoMapper {
     RouteNeighborhoodDto toRouteNeighborhoodDto(RouteNeighborhood routeNeighborhood);
     List<RouteNeighborhoodDto> toRouteNeighborhoodDtoList(List<RouteNeighborhood> routeNeighborhoods);
+
 }

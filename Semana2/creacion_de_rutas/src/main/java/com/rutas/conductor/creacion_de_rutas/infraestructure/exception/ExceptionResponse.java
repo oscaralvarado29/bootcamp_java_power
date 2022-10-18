@@ -11,6 +11,9 @@ public enum ExceptionResponse {
     EMAIL_INVALID_FORMAT("El email tiene un formato inválido"),
     MISSING_MANDATORY_DATA("Todos los campos son obligatorios"),
     PASSWORD_INVALID_FORMAT("La contraseña no cumple con el formato requerido"),
+
+    QUOTA_NOT_VALID("La cantidad de pasajeros no es válida"),
+    REPEATED_NEIGHBORHOODS("Los barrios de las paradas no pueden ser iguales"),
     ROUTE_NOT_FOUND("No se encontró la ruta"),
     ROUTE_ALREADY_EXISTS("La ruta ya existe"),
     ROUTENAME_NOT_PRESENT("El nombre de la ruta no puede ser nulo"),
@@ -18,6 +21,7 @@ public enum ExceptionResponse {
     ROUTENEIGHBORHOOD_ALREADY_EXISTS("El barrio ya existe"),
     TRAVEL_NOT_FOUND("No se encontró el viaje"),
     TRAVEL_ALREADY_EXISTS("El viaje ya existe");
+
 
     private final String  message;
 

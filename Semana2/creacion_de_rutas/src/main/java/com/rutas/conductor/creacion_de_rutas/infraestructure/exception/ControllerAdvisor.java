@@ -5,6 +5,8 @@ import com.rutas.conductor.creacion_de_rutas.domain.exceptions.EmailInvalidForma
 import com.rutas.conductor.creacion_de_rutas.domain.exceptions.EmailNotPresentException;
 import com.rutas.conductor.creacion_de_rutas.domain.exceptions.MissingMandatoryDataException;
 import com.rutas.conductor.creacion_de_rutas.domain.exceptions.PasswordInvalidFormatException;
+import com.rutas.conductor.creacion_de_rutas.domain.exceptions.QuotaNotValidException;
+import com.rutas.conductor.creacion_de_rutas.domain.exceptions.RepeatedNeighborhoodsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -84,6 +86,14 @@ public class ControllerAdvisor {
     @ExceptionHandler(TravelNotFoundException.class)
     public ResponseEntity<Map<String, String>> travelNotFound(){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap(MESSAGE, ExceptionResponse.TRAVEL_NOT_FOUND.getMessage()));
+    }
+    @ExceptionHandler(QuotaNotValidException.class)
+    public ResponseEntity<Map<String, String>> quotaNotValid(){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Collections.singletonMap(MESSAGE, ExceptionResponse.QUOTA_NOT_VALID.getMessage()));
+    }
+    @ExceptionHandler(RepeatedNeighborhoodsException.class)
+    public ResponseEntity<Map<String, String>> repeatedNeighborhoods(){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Collections.singletonMap(MESSAGE, ExceptionResponse.REPEATED_NEIGHBORHOODS.getMessage()));
     }
 
 }

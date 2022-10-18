@@ -54,7 +54,7 @@ public class NeighborhoodJpaAdapter implements INeighborhoodPersistencePort {
     }
 
     @Override
-    public  Neighborhood  findByName(String neighborhoodName) {
+    public  Neighborhood findNeighborhoodByName(String neighborhoodName) {
         NeighborhoodEntity neighborhoodInDB = neighborhoodRepository.findByNeighborhoodName(neighborhoodName).orElseThrow(NeighborhoodNotFoundException::new);
         return neighborhoodEntityMapper.toNeighborhood(neighborhoodInDB);
     }

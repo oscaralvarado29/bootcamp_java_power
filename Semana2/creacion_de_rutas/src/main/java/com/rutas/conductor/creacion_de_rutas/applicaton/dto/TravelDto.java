@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TravelDto {
-    private String fecha;
-    private String hora;
+    private String date;
+    private String hour;
 }

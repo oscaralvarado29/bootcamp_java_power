@@ -53,7 +53,7 @@ public class NeighborhoodUseCase implements INeighborhoodServicePort {
      */
     @Override
     public Neighborhood findNeighborhoodByName(String neighborhoodName) {
-        return neighborhoodPersistencePort.findByName(neighborhoodName);
+        return neighborhoodPersistencePort.findNeighborhoodByName(neighborhoodName);
     }
 
     /**

@@ -41,7 +41,7 @@ public class TravelUseCase implements ITravelServicePort {
      */
     @Override
     public void deleteTravelsOfARoute(Long routeId) {
-        travelPersistencePort.deleteTravelOfARoute(routeId);
+        travelPersistencePort.deleteTravelsOfARoute(routeId);
     }
 
     /**

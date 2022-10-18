@@ -2,8 +2,8 @@ package com.rutas.conductor.creacion_de_rutas.applicaton.dto;
 
 import com.rutas.conductor.creacion_de_rutas.domain.model.Travel;
 import com.rutas.conductor.creacion_de_rutas.domain.model.RouteNeighborhood;
-
 import java.util.List;
+
 
 public class RouteRequest {
     private String routeName;
@@ -13,9 +13,9 @@ public class RouteRequest {
     private List<RouteNeighborhood> stops;
     private List<Travel> travelDates;
     private Integer quota;
-    private Long conductorId;
+    private String conductorEmail;
 
-    public RouteRequest(String routeName, String description, RouteNeighborhood origin, RouteNeighborhood destination, List<RouteNeighborhood> stops, List<Travel> travelDates, Integer quota, Long conductorId) {
+    public RouteRequest(String routeName, String description, RouteNeighborhood origin, RouteNeighborhood destination, List<RouteNeighborhood> stops, List<Travel> travelDates, Integer quota, String conductorEmail) {
         this.routeName = routeName;
         this.description = description;
         this.origin = origin;
@@ -23,7 +23,7 @@ public class RouteRequest {
         this.stops = stops;
         this.travelDates = travelDates;
         this.quota = quota;
-        this.conductorId = conductorId;
+        this.conductorEmail = conductorEmail;
     }
 
     public String getRouteName() {
@@ -82,11 +82,11 @@ public class RouteRequest {
         this.quota = quota;
     }
 
-    public Long getConductorId() {
-        return conductorId;
+    public String getConductorEmail() {
+        return conductorEmail;
     }
 
-    public void setConductorId(Long conductorId) {
-        this.conductorId = conductorId;
+    public void setConductorEmail(String conductorEmail) {
+        this.conductorEmail = conductorEmail;
     }
 }

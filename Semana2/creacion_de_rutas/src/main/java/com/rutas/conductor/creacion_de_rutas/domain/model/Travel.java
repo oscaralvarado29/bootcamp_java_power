@@ -6,6 +6,7 @@ public class Travel {
     private String date;
     private String hour;
 
+    public Travel(){}
     public Travel(Long travelId, Long routeId, String date, String hour) {
         this.travelId = travelId;
         this.routeId = routeId;

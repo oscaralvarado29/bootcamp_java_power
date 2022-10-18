@@ -8,10 +8,12 @@ import com.rutas.conductor.creacion_de_rutas.domain.api.ITravelServicePort;
 import com.rutas.conductor.creacion_de_rutas.domain.api.INeighborhoodServicePort;
 import com.rutas.conductor.creacion_de_rutas.domain.api.IRouteNeighborhoodServicePort;
 import com.rutas.conductor.creacion_de_rutas.domain.api.IRouteServicePort;
+import com.rutas.conductor.creacion_de_rutas.domain.api.IUserServicePort;
 import com.rutas.conductor.creacion_de_rutas.domain.model.Travel;
 import com.rutas.conductor.creacion_de_rutas.domain.model.Neighborhood;
 import com.rutas.conductor.creacion_de_rutas.domain.model.Route;
 import com.rutas.conductor.creacion_de_rutas.domain.model.RouteNeighborhood;
+import com.rutas.conductor.creacion_de_rutas.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,7 @@ import java.util.List;
 public class RouteHandler implements IRouteHandler {
     private final IRouteServicePort routeServicePort;
     private final ITravelServicePort travelServicePort;
+    private final IUserServicePort userServicePort;
     private final IRouteNeighborhoodServicePort routeNeighborhoodServicePort;
     private final INeighborhoodServicePort neighborhoodServicePort;
     private final RouteRequestMapper routeRequestMapper;
@@ -32,21 +35,24 @@ public class RouteHandler implements IRouteHandler {
 
     @Override
     public void saveRouteInDB(RouteRequest routeRequest) {
-        routeServicePort.saveRoute(routeRequestMapper.toRoute(routeRequest));
+        User conductor =  userServicePort.findUserByEmail(routeRequest.getConductorEmail());
+        Route routeWithOutConductorId = routeRequestMapper.toRoute(routeRequest);
+        routeWithOutConductorId.setConductorId(conductor.getUserId());
+        routeServicePort.saveRoute(routeWithOutConductorId);
         Route route = routeServicePort.findRouteByName(routeRequest.getRouteName());
         Long routeId = route.getRouteId();
-        List<RouteNeighborhood> neighborhoodList = routeRequestMapper.toRouteNeighborhoodList(routeRequest);
-        List<Travel> travelList = routeRequestMapper.toDatesRouteList(routeRequest);
-        for (RouteNeighborhood routeNeighborhood : neighborhoodList) {
+        List<RouteNeighborhood> routeNeighborhoodList = routeRequestMapper.toRouteNeighborhoodList(routeRequest);
+        List<Travel> travelList = routeRequestMapper.toTravelList(routeRequest);
+        for (RouteNeighborhood routeNeighborhood : routeNeighborhoodList) {
+
             routeNeighborhood.setRouteId(routeId);
-            System.out.println("el id de la ruta es: " + routeId);
         }
         for (Travel travel : travelList) {
             travel.setRouteId(route.getRouteId());
-            System.out.println("el id de la ruta es: " + route.getRouteId());
         }
-        routeNeighborhoodServicePort.saveRouteNeighborhood(neighborhoodList);
+        routeNeighborhoodServicePort.saveRouteNeighborhood(routeNeighborhoodList);
         travelServicePort.saveTravel(travelList);
+
     }
 
     @Override
@@ -69,6 +75,7 @@ public class RouteHandler implements IRouteHandler {
         Route route = routeServicePort.findRouteByName(routeName);
         routeNeighborhoodServicePort.deleteRouteNeighborhoodByRoute(route.getRouteId());
         travelServicePort.deleteTravelsOfARoute(route.getRouteId());
+        routeServicePort.deleteRoute(routeName);
     }
 
     @Override
@@ -89,7 +96,7 @@ public class RouteHandler implements IRouteHandler {
             }
         }
         if (!routeRequest.getTravelDates().isEmpty()) {
-            List<Travel> newTravels = routeRequestMapper.toDatesRouteList(routeRequest);
+            List<Travel> newTravels = routeRequestMapper.toTravelList(routeRequest);
             for (Travel travel : newTravels) {
                 travel.setRouteId(oldRoute.getRouteId());
                 travelServicePort.updateTravel(travel);

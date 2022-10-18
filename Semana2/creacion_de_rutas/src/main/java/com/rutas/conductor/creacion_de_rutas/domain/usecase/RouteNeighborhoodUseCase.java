@@ -30,11 +30,8 @@ public class RouteNeighborhoodUseCase implements IRouteNeighborhoodServicePort {
     private void validationOfComplianceWithTheRequirementsForSaveRouteNeighborhood(List<RouteNeighborhood>  routeNeighborhoodList) {
 
         List<Long> neighborhoodIdList = new ArrayList<>();
-        System.out.println("Ingresando a hacer la validacion de " + routeNeighborhoodList.size() + " elementos");
         for (RouteNeighborhood routeNeighborhood : routeNeighborhoodList) {
-            System.out.println("Ingresando a hacer la validacion de " + routeNeighborhood.getNeighborhoodId());
             if (!neighborhoodIdList.contains(routeNeighborhood.getNeighborhoodId())) {
-                System.out.println("Agregando el vecindario con id "+ routeNeighborhood.getNeighborhoodId() + " a la lista");
                 neighborhoodIdList.add(routeNeighborhood.getNeighborhoodId());
             }
         }
@@ -57,15 +54,6 @@ public class RouteNeighborhoodUseCase implements IRouteNeighborhoodServicePort {
     @Override
     public void deleteRouteNeighborhoodByRoute(Long routeId) {
         routeNeighborhoodPersistencePort.deleteRouteNeighborhoodByRoute(routeId);
-    }
-
-    /**
-     * @param routeNeighborhoodId routeNeighborhoodId of routeNeighborhood to get
-     * @return routeNeighborhood with routeNeighborhoodId
-     */
-    @Override
-    public RouteNeighborhood getRouteNeighborhood(Long routeNeighborhoodId) {
-        return routeNeighborhoodPersistencePort.getRouteNeighborhood(routeNeighborhoodId);
     }
 
     /**

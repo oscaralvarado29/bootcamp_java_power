@@ -7,6 +7,7 @@ public class RouteNeighborhood {
     private String meetingPoint;
     private Integer position;
 
+    public RouteNeighborhood(){}
     public RouteNeighborhood(Long routeNeighborhoodId, Long routeId, Long neighborhoodId, String meetingPoint, Integer position) {
         this.routeNeighborhoodId = routeNeighborhoodId;
         this.routeId = routeId;
