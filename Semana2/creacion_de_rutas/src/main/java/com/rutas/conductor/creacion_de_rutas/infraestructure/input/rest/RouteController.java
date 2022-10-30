@@ -1,6 +1,7 @@
 package com.rutas.conductor.creacion_de_rutas.infraestructure.input.rest;
 
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.NeighborhoodResponse;
+import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteClientRequest;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteRequest;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteResponse;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.UserResponse;
@@ -37,8 +38,8 @@ public class RouteController {
             @ApiResponse(responseCode = "409", description = "Route already exists", content = @Content)
     })
     @PostMapping("/save")
-    public ResponseEntity<Void> saveRouteInDB(@RequestBody RouteRequest routeRequest){
-        routeHandler.saveRouteInDB(routeRequest);
+    public ResponseEntity<Void> saveRouteInDB(@RequestBody RouteClientRequest routeClientRequest){
+        routeHandler.saveRouteInDB(routeClientRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

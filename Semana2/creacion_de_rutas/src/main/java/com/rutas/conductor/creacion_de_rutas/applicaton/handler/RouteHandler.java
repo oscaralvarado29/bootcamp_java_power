@@ -1,7 +1,9 @@
 package com.rutas.conductor.creacion_de_rutas.applicaton.handler;
 
+import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteClientRequest;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteRequest;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteResponse;
+import com.rutas.conductor.creacion_de_rutas.applicaton.mapper.RouteClientRequestMapper;
 import com.rutas.conductor.creacion_de_rutas.applicaton.mapper.RouteRequestMapper;
 import com.rutas.conductor.creacion_de_rutas.applicaton.mapper.RouteResponseMapper;
 import com.rutas.conductor.creacion_de_rutas.domain.api.ITravelServicePort;
@@ -31,10 +33,16 @@ public class RouteHandler implements IRouteHandler {
     private final INeighborhoodServicePort neighborhoodServicePort;
     private final RouteRequestMapper routeRequestMapper;
     private final RouteResponseMapper routeResponseMapper;
+    private final RouteClientRequestMapper routeClientRequestMapper;
 
 
     @Override
-    public void saveRouteInDB(RouteRequest routeRequest) {
+    public void saveRouteInDB(RouteClientRequest routeClientRequest) {
+
+        List<Neighborhood> neighborhoods = neighborhoodServicePort.getAllNeighborhoods();
+
+        RouteRequest routeRequest = routeClientRequestMapper.toRouteRequest(routeClientRequest, neighborhoods);
+
         User conductor =  userServicePort.findUserByEmail(routeRequest.getConductorEmail());
         Route routeWithOutConductorId = routeRequestMapper.toRoute(routeRequest);
         routeWithOutConductorId.setConductorId(conductor.getUserId());

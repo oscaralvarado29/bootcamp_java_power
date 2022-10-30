@@ -26,6 +26,9 @@ public class RouteRequest {
         this.conductorEmail = conductorEmail;
     }
 
+    public RouteRequest() {
+    }
+
     public String getRouteName() {
         return routeName;
     }
