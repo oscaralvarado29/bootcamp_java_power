@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NeighborhoodResponse {
-    private String neighborhoodName;
+    private Long neighborhoodId;
     private String neighborhoodDescription;
 }

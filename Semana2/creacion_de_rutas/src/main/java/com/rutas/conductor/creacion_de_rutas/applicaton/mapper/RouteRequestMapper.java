@@ -32,7 +32,7 @@ public interface RouteRequestMapper {
         routeNeighborhoods.add(origin);
         routeNeighborhoods.addAll(routeRequest.getStops());
         RouteNeighborhood destination = routeRequest.getDestination();
-        destination.setPosition(routeRequest.getStops().size()+1);
+        destination.setPosition(routeRequest.getStops().size()+2);
         routeNeighborhoods.add(destination);
         return routeNeighborhoods;
     }
