@@ -1,5 +1,6 @@
 server:
   port:8081
+
 spring:
   cloud:
     config:
@@ -8,10 +9,10 @@ spring:
           uri: https://github.com/oscaralvarado29/bootcamp_java_power.git
           username: ${GIT_USERNAME}
           password: ${GIT_PASSWORD}
-          default-label: desarrollo
+          default-label: Desarrollo
           search-paths: Semana3
 
   security:
     user:
-      name: ${USER_NAME}
-      password: ${USER_PASSWORD}
+      name: root
+      password: #Contrasena123
