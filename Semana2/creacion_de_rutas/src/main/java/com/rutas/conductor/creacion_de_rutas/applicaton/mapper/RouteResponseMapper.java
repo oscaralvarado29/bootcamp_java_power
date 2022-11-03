@@ -21,13 +21,13 @@ public interface RouteResponseMapper{
     TravelDtoMapper INSTANCEDATESROUTE = Mappers.getMapper(TravelDtoMapper.class);
     RouteNeighborhoodDtoMapper INSTANCEROUTENEIGHBORHOOD = Mappers.getMapper(RouteNeighborhoodDtoMapper.class);
 
-    default RouteResponse toRouteResponse(Route route, Neighborhood origin, Neighborhood destination, List<RouteNeighborhood> stops, List<Travel> travelDates){
+    default RouteResponse toRouteResponse(Route route, Neighborhood origin, Neighborhood destination,List<Neighborhood> neighborhoodList, List<RouteNeighborhood> stops, List<Travel> travelDates){
 
         RouteResponse routeResponse = new RouteResponse();
         routeResponse.setRouteName(route.getRouteName());
         routeResponse.setOrigin(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(origin));
         routeResponse.setDestination(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(destination));
-        routeResponse.setStops(INSTANCEROUTENEIGHBORHOOD.toRouteNeighborhoodDtoList(stops));
+        routeResponse.setStops(INSTANCEROUTENEIGHBORHOOD.toRouteNeighborhoodDtoList(stops,neighborhoodList));
         routeResponse.setTravelDates(INSTANCEDATESROUTE.toDateDtoList(travelDates));
         routeResponse.setQuota(route.getQuota());
         return routeResponse;
@@ -38,7 +38,7 @@ public interface RouteResponseMapper{
             routeResponse.setRouteName(route.getRouteName());
             routeResponse.setOrigin(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(neighborhoodList.stream().filter(neighborhood -> neighborhood.getNeighborhoodId().equals(route.getOriginNeighborhood())).findFirst().orElse(null)));
             routeResponse.setDestination(INSTANCENEIGHBORHOOD.toNeighborhoodResponse(neighborhoodList.stream().filter(neighborhood -> neighborhood.getNeighborhoodId().equals(route.getDestinationNeighborhood())).findFirst().orElse(null)));
-            routeResponse.setStops(INSTANCEROUTENEIGHBORHOOD.toRouteNeighborhoodDtoList(routeNeighborhoodList.stream().filter(routeNeighborhood -> routeNeighborhood.getRouteId().equals(route.getRouteId())).collect(Collectors.toList())));
+            routeResponse.setStops(INSTANCEROUTENEIGHBORHOOD.toRouteNeighborhoodDtoList(routeNeighborhoodList.stream().filter(routeNeighborhood -> routeNeighborhood.getRouteId().equals(route.getRouteId())).collect(Collectors.toList()), neighborhoodList));
             routeResponse.setTravelDates(INSTANCEDATESROUTE.toDateDtoList(travelList.stream().filter(travel -> travel.getRouteId().equals(route.getRouteId())).collect(Collectors.toList())));
             routeResponse.setQuota(route.getQuota());
             return routeResponse;

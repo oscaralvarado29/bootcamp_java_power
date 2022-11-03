@@ -1,7 +1,7 @@
 package com.rutas.conductor.creacion_de_rutas.applicaton.mapper;
 
-import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteClientNeighbordhood;
-import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteClientRequest;
+import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteRequestClient;
+import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteNeighborhoodDto;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteRequest;
 import com.rutas.conductor.creacion_de_rutas.domain.model.Neighborhood;
 import com.rutas.conductor.creacion_de_rutas.domain.model.RouteNeighborhood;
@@ -9,33 +9,40 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface RouteClientRequestMapper {
 
-    default RouteRequest toRouteRequest(RouteClientRequest routeClientRequest, List<Neighborhood> neighborhoods) {
+    default RouteRequest toRouteRequest(RouteRequestClient routeRequestClient, List<Neighborhood> neighborhoods) {
         RouteRequest routeRequest = new RouteRequest();
 
-        routeRequest.setRouteName(routeClientRequest.getRouteName());
-        routeRequest.setDescription(routeClientRequest.getDescription());
-        routeRequest.setOrigin(toRouteNeighborhood(routeClientRequest.getOrigin(), neighborhoods));
-        routeRequest.setDestination(toRouteNeighborhood(routeClientRequest.getDestination(), neighborhoods));
-        routeRequest.setTravelDates(routeClientRequest.getTravelDates());
-        routeRequest.setQuota(routeClientRequest.getQuota());
-        routeRequest.setConductorEmail(routeClientRequest.getConductorEmail());
+        routeRequest.setRouteName(routeRequestClient.getRouteName());
+        routeRequest.setDescription(routeRequestClient.getDescription());
+        routeRequest.setOrigin(toRouteNeighborhood(routeRequestClient.getOrigin(), neighborhoods));
+        routeRequest.setDestination(toRouteNeighborhood(routeRequestClient.getDestination(), neighborhoods));
+        routeRequest.setStops(toRouteNeighborhoodList(routeRequestClient.getStops(), neighborhoods));
+        routeRequest.setTravelDates(routeRequestClient.getTravelDates());
+        routeRequest.setQuota(routeRequestClient.getQuota());
+        routeRequest.setConductorEmail(routeRequestClient.getConductorEmail());
         return routeRequest;
     }
 
-    default RouteNeighborhood toRouteNeighborhood(RouteClientNeighbordhood routeClientNeighbordhood, List<Neighborhood> neighborhoods) {
-        RouteNeighborhood routeNeighborhood = new RouteNeighborhood(
-                routeClientNeighbordhood.getRouteNeighborhoodId(),
-                routeClientNeighbordhood.getRouteId(),
-                neighborhoods.stream().filter(neighborhood -> neighborhood.getNeighborhoodName().equals(routeClientNeighbordhood.getNeighborhoodName())).findFirst().get().getNeighborhoodId(),
-                routeClientNeighbordhood.getMeetingPoint(),
-                routeClientNeighbordhood.getPosition()
-        );
+    default RouteNeighborhood toRouteNeighborhood(RouteNeighborhoodDto routeNeighborhoodDto, List<Neighborhood> neighborhoods) {
+        RouteNeighborhood routeNeighborhood = new RouteNeighborhood();
+        Optional <Neighborhood> neighborhoodWithId = neighborhoods.stream().filter(neighborhood -> neighborhood.getNeighborhoodName().equals(routeNeighborhoodDto.getNeighborhoodName())).findFirst();
+        if (neighborhoodWithId.isPresent()) {
+            routeNeighborhood.setNeighborhoodId(neighborhoodWithId.get().getNeighborhoodId());
+        }
+        routeNeighborhood.setMeetingPoint(routeNeighborhoodDto.getMeetingPoint());
+        routeNeighborhood.setPosition(routeNeighborhoodDto.getPosition());
         return routeNeighborhood;
+    }
+
+    default List<RouteNeighborhood> toRouteNeighborhoodList(List<RouteNeighborhoodDto> routeNeighborhoodDtos, List<Neighborhood> neighborhoods) {
+        return routeNeighborhoodDtos.stream().map(routeNeighborhoodDto -> toRouteNeighborhood(routeNeighborhoodDto, neighborhoods)).collect(Collectors.toList());
     }
 }

@@ -1,6 +1,6 @@
 package com.rutas.conductor.creacion_de_rutas.applicaton.handler;
 
-import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteClientRequest;
+import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteRequestClient;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteRequest;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteResponse;
 import com.rutas.conductor.creacion_de_rutas.applicaton.mapper.RouteClientRequestMapper;
@@ -37,11 +37,10 @@ public class RouteHandler implements IRouteHandler {
 
 
     @Override
-    public void saveRouteInDB(RouteClientRequest routeClientRequest) {
+    public void saveRouteInDB(RouteRequestClient routeRequestClient) {
 
         List<Neighborhood> neighborhoods = neighborhoodServicePort.getAllNeighborhoods();
-
-        RouteRequest routeRequest = routeClientRequestMapper.toRouteRequest(routeClientRequest, neighborhoods);
+        RouteRequest routeRequest = routeClientRequestMapper.toRouteRequest(routeRequestClient, neighborhoods);
 
         User conductor =  userServicePort.findUserByEmail(routeRequest.getConductorEmail());
         Route routeWithOutConductorId = routeRequestMapper.toRoute(routeRequest);
@@ -73,9 +72,10 @@ public class RouteHandler implements IRouteHandler {
         Route route = routeServicePort.findRouteByName(routeName);
         Neighborhood origin = neighborhoodServicePort.getNeighborhood(route.getOriginNeighborhood());
         Neighborhood destination = neighborhoodServicePort.getNeighborhood(route.getDestinationNeighborhood());
+        List<Neighborhood> neighborhoods = neighborhoodServicePort.getAllNeighborhoods();
         List<RouteNeighborhood> stops = routeNeighborhoodServicePort.findRouteNeighborhoodByRoute(route.getRouteId());
         List<Travel> travel = travelServicePort.findTravelByRoute(route.getRouteId());
-        return routeResponseMapper.toRouteResponse(route, origin, destination, stops, travel);
+        return routeResponseMapper.toRouteResponse(route, origin, destination, neighborhoods, stops, travel);
     }
 
     @Override

@@ -1,13 +1,13 @@
 package com.rutas.conductor.creacion_de_rutas.applicaton.handler;
 
-import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteClientRequest;
+import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteRequestClient;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteRequest;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteResponse;
 
 import java.util.List;
 
 public interface IRouteHandler {
-    void saveRouteInDB(RouteClientRequest routeClientRequest);
+    void saveRouteInDB(RouteRequestClient routeRequestClient);
     List<RouteResponse> getAllRoutesFromDB();
     RouteResponse getRouteFromDBByName(String routeName);
     void deleteRouteInDB(String routeName);

@@ -8,13 +8,13 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RouteClientRequest {
+public class RouteRequestClient {
 
     private String routeName;
     private String description;
-    private RouteClientNeighbordhood origin;
-    private RouteClientNeighbordhood destination;
-    private List<RouteClientNeighbordhood> stops;
+    private RouteNeighborhoodDto origin;
+    private RouteNeighborhoodDto destination;
+    private List<RouteNeighborhoodDto> stops;
     private List<Travel> travelDates;
     private Integer quota;
     private String conductorEmail;
