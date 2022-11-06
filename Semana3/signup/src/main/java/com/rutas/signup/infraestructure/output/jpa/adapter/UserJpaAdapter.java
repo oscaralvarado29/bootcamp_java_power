@@ -21,7 +21,7 @@ public class UserJpaAdapter implements IUserPersistencePort {
 
     @Override
     public void saveUser(User user) {
-        if (userRepository.findByUserEmail(user.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException();
         }
         Cognito cognitoAnswer = cognitoClient.Signup().getBody();
@@ -35,8 +35,8 @@ public class UserJpaAdapter implements IUserPersistencePort {
 
 
     @Override
-    public User findUserByEmail(String userEmail) {
-        UserEntity userInDB = userRepository.findByUserEmail(userEmail).orElseThrow(UserNotFoundException::new);
+    public User findUserByEmail(String email) {
+        UserEntity userInDB = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
         return userEntityMapper.toUser(userInDB);
     }
 }
