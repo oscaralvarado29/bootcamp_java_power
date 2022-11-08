@@ -5,5 +5,5 @@ spring:
     config:
       uri: http://localhost:8081
       username: root
-      password: EeLcDmS2022*
+      password: Contrasena123
       profile: dev

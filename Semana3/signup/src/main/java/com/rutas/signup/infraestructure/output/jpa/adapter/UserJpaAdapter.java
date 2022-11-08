@@ -24,13 +24,12 @@ public class UserJpaAdapter implements IUserPersistencePort {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException();
         }
-        Cognito cognitoAnswer = cognitoClient.Signup().getBody();
-        int beginIndex = cognitoAnswer.getBody().indexOf("Data") + 5;
-        int endIndex = cognitoAnswer.getBody().indexOf("Message") - 6;
-        String username = cognitoAnswer.getBody().substring(beginIndex, endIndex);
-        UserEntity userEntity = userEntityMapper.toUserEntity(user);
-        userEntity.setUsername(username);
-        userRepository.save(userEntityMapper.toUserEntity(user));
+        Cognito cognitoAnswer = cognitoClient.Signup(user).getBody();
+        String[] body = cognitoAnswer.getBody();
+        System.out.println(body[1]);
+        //UserEntity userEntity = userEntityMapper.toUserEntity(user);
+        //userEntity.setUsername(username);
+        //userRepository.save(userEntityMapper.toUserEntity(user));
     }
 
 
