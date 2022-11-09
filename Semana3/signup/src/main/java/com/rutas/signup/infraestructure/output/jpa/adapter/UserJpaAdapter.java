@@ -26,10 +26,12 @@ public class UserJpaAdapter implements IUserPersistencePort {
         }
         Cognito cognitoAnswer = cognitoClient.Signup(user).getBody();
         String[] body = cognitoAnswer.getBody();
-        System.out.println(body[1]);
-        //UserEntity userEntity = userEntityMapper.toUserEntity(user);
-        //userEntity.setUsername(username);
-        //userRepository.save(userEntityMapper.toUserEntity(user));
+        int endIndex = body[1].length() - 1;
+        String username = body[1].substring(8, endIndex);
+        System.out.println(username);
+        UserEntity userEntity = userEntityMapper.toUserEntity(user);
+        userEntity.setUsername(username);
+        userRepository.save(userEntity);
     }
 
 
