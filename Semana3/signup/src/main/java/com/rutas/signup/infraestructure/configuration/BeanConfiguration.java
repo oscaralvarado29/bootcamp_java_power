@@ -3,7 +3,7 @@ package com.rutas.signup.infraestructure.configuration;
 import com.rutas.signup.domain.api.IUserServicePort;
 import com.rutas.signup.domain.spi.IUserPersistencePort;
 import com.rutas.signup.domain.usecase.UserUseCase;
-import com.rutas.signup.infraestructure.output.client.ICognitoClient;
+import com.rutas.signup.infraestructure.output.client.CognitoClient;
 import com.rutas.signup.infraestructure.output.jpa.adapter.UserJpaAdapter;
 import com.rutas.signup.infraestructure.output.jpa.mapper.IUserEntityMapper;
 import com.rutas.signup.infraestructure.output.jpa.repository.IUserRepository;
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
     
     private final IUserRepository userRepository;
-    private final ICognitoClient cognitoClient;
+    private final CognitoClient cognitoClient;
     private final IUserEntityMapper userEntityMapper;
 
     @Bean

@@ -5,7 +5,7 @@ import com.rutas.signup.domain.spi.IUserPersistencePort;
 import com.rutas.signup.infraestructure.dto.Cognito;
 import com.rutas.signup.infraestructure.exception.UserAlreadyExistsException;
 import com.rutas.signup.infraestructure.exception.UserNotFoundException;
-import com.rutas.signup.infraestructure.output.client.ICognitoClient;
+import com.rutas.signup.infraestructure.output.client.CognitoClient;
 import com.rutas.signup.infraestructure.output.jpa.entity.UserEntity;
 import com.rutas.signup.infraestructure.output.jpa.mapper.IUserEntityMapper;
 import com.rutas.signup.infraestructure.output.jpa.repository.IUserRepository;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class UserJpaAdapter implements IUserPersistencePort {
 
     private final IUserRepository userRepository;
-    private final ICognitoClient cognitoClient;
+    private final CognitoClient cognitoClient;
     private final IUserEntityMapper userEntityMapper;
 
     @Override

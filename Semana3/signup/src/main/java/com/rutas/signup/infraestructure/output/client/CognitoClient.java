@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @FeignClient(name = "cognitoClient", url = "https://k6gwndgg8j.execute-api.us-east-1.amazonaws.com/pdn/bootcamppowerup/Signup")
-public interface ICognitoClient {
+public interface CognitoClient {
     @PostMapping
     public ResponseEntity<Cognito> Signup(User user);
 }

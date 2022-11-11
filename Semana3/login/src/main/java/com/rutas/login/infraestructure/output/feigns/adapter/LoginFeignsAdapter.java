@@ -2,7 +2,7 @@ package com.rutas.login.infraestructure.output.feigns.adapter;
 
 import com.rutas.login.domain.model.Login;
 import com.rutas.login.domain.spi.ILoginPersistancePort;
-import com.rutas.login.infraestructure.output.client.CognitoClient;
+import com.rutas.login.infraestructure.output.client.CognitoLoginClient;
 import com.rutas.login.infraestructure.output.client.SignupClient;
 import com.rutas.login.infraestructure.dto.Cognito;
 import com.rutas.login.infraestructure.dto.UserResponse;
@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 @RequiredArgsConstructor
 public class LoginFeignsAdapter implements ILoginPersistancePort {
 
-    private final CognitoClient cognitoClient;
+    private final CognitoLoginClient cognitoLoginClient;
     private final SignupClient signupClient;
     private final LoginEntityMapper loginEntityMapper;
 
@@ -25,7 +25,7 @@ public class LoginFeignsAdapter implements ILoginPersistancePort {
         Cognito cognitoAnswer;
         if (user.getBody().getUsername() != null) {
             if (user.getBody().getPassword().equals(login.getPassword())) {
-                cognitoAnswer = cognitoClient.Login(loginEntityMapper.toLoginEntity(user.getBody().getUsername(),login)).getBody();
+                cognitoAnswer = cognitoLoginClient.Login(loginEntityMapper.toLoginEntity(user.getBody().getUsername(),login)).getBody();
             } else {
                 throw new PasswordIncorrectException();
             }
