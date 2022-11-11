@@ -1,4 +1,4 @@
-package com.rutas.signup.infraestructure.configuration;
+package com.rutas.signup.infraestructure.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

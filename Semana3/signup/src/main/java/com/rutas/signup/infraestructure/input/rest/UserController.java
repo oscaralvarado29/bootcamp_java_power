@@ -41,7 +41,7 @@ public class UserController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))),
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
-    @GetMapping("/get/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<UserResponse> getUserFromDBByEmail(@PathVariable(name = "email") String userEmail){
         return ResponseEntity.ok(userHandler.getUserFromDBByEmail(userEmail));
     }
