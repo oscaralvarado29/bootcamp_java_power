@@ -21,6 +21,7 @@ public class LoginFeignsAdapter implements ILoginPersistancePort {
 
     @Override
     public String generateToken(Login login) {
+        System.out.println("Entro al adapter");
         ResponseEntity<UserResponse> user= signupClient.getUserFromDBByEmail(login.getEmail());
         Cognito cognitoAnswer;
         if (user.getBody().getUsername() != null) {
@@ -34,6 +35,7 @@ public class LoginFeignsAdapter implements ILoginPersistancePort {
         }
         String[] body = cognitoAnswer.getBody();
         String loginAnswer = "El idToken del usuaro es" + body[2];
+        System.out.println(loginAnswer);
         return loginAnswer;
     }
 }

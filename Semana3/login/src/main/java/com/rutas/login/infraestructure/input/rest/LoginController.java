@@ -25,8 +25,10 @@ public class LoginController {
             @ApiResponse(responseCode = "202", description = "Login accepted", content = @Content),
             @ApiResponse(responseCode = "409", description = "Login not allowed", content = @Content)
     })
-    @PostMapping("/save")
+    @PostMapping()
     public ResponseEntity<String> saveUserInDB(@RequestBody LoginRequest loginRequest){
-        return  ResponseEntity.accepted().body(loginHandler.generateToken(loginRequest));
+        System.out.println("Entra en el controlador");
+        String answer = loginHandler.generateToken(loginRequest);
+        return  ResponseEntity.accepted().body(answer);
     }
 }
