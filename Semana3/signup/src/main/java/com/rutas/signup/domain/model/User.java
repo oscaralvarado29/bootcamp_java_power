@@ -1,6 +1,7 @@
 package com.rutas.signup.domain.model;
 
 public class User {
+     private Long userId;
      private String name;
      private String username;
      private String email;
@@ -10,7 +11,9 @@ public class User {
      private String password;
 
     public User(){}
-    public User(String name, String username, String email, String familyName, String address, String phoneNumber, String password) {
+
+    public User(Long userId, String name, String username, String email, String familyName, String address, String phoneNumber, String password) {
+        this.userId = userId;
         this.name = name;
         this.username = username;
         this.email = email;
@@ -18,6 +21,14 @@ public class User {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.password = password;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getName() {
