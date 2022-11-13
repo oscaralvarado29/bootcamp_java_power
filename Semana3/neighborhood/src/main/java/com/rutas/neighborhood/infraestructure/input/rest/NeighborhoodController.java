@@ -36,7 +36,7 @@ public class NeighborhoodController {
             @ApiResponse(responseCode = "409", description = "Neighborhood already exists", content = @Content)
     })
     @PostMapping("/save")
-    public ResponseEntity<Void> saveNeighborhoodInDB(@RequestBody NeighborhoodRequest neighborhoodRequest){
+    public ResponseEntity<Void> saveNeighborhoodInDB(@RequestBody NeighborhoodRequest neighborhoodRequest, @RequestHeader(value = "Authorization") String authorization){
         neighborhoodHandler.saveNeighborhoodInDB(neighborhoodRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -49,7 +49,7 @@ public class NeighborhoodController {
             @ApiResponse(responseCode = "404", description = "UserEntity not found", content = @Content)
     })
     @GetMapping("/getAll")
-    public ResponseEntity<List<NeighborhoodResponse>> getAllNeighborhoodsFromDB(@RequestHeader(value = "Authorization") String language){
+    public ResponseEntity<List<NeighborhoodResponse>> getAllNeighborhoodsFromDB(@RequestHeader(value = "Authorization") String authorization){
         return ResponseEntity.ok(neighborhoodHandler.getAllNeighborhoodsFromDB());
     }
 
@@ -60,7 +60,7 @@ public class NeighborhoodController {
             @ApiResponse(responseCode = "404", description = "Neighborhood not found", content = @Content)
     })
     @GetMapping("/get/{name}")
-    public ResponseEntity<NeighborhoodResponse> getNeighborhoodByNameFromDB(@PathVariable(name = "name") String neighborhoodName){
+    public ResponseEntity<NeighborhoodResponse> getNeighborhoodByNameFromDB(@PathVariable(name = "name") String neighborhoodName, @RequestHeader(value = "Authorization") String authorization){
         return ResponseEntity.ok(neighborhoodHandler.getNeighborhoodFromDBByName(neighborhoodName));
     }
 
@@ -70,7 +70,7 @@ public class NeighborhoodController {
             @ApiResponse(responseCode = "404", description = "Neighborhood not found", content = @Content)
     })
     @PutMapping("/update")
-    public ResponseEntity<Void> updateNeighborhoodInDB(@RequestBody NeighborhoodRequest neighborhoodRequest){
+    public ResponseEntity<Void> updateNeighborhoodInDB(@RequestBody NeighborhoodRequest neighborhoodRequest, @RequestHeader(value = "Authorization") String authorization){
         neighborhoodHandler.updateNeighborhoodInDB(neighborhoodRequest);
         return ResponseEntity.noContent().build();
     }
@@ -81,7 +81,7 @@ public class NeighborhoodController {
             @ApiResponse(responseCode = "404", description = "Neighborhood not found", content = @Content)
     })
     @DeleteMapping("/delete/{neighborhoodName}")
-    public ResponseEntity<Void> deleteNeighborhoodInDB(@PathVariable String neighborhoodName){
+    public ResponseEntity<Void> deleteNeighborhoodInDB(@PathVariable String neighborhoodName, @RequestHeader(value = "Authorization") String authorization){
         neighborhoodHandler.deleteNeighborhoodInDB(neighborhoodName);
         return ResponseEntity.noContent().build();
     }
