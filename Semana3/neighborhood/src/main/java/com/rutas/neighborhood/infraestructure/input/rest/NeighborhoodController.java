@@ -1,5 +1,6 @@
 package com.rutas.neighborhood.infraestructure.input.rest;
 
+import com.rutas.neighborhood.application.dto.NeighborhoodClientResponse;
 import com.rutas.neighborhood.application.dto.NeighborhoodRequest;
 import com.rutas.neighborhood.application.dto.NeighborhoodResponse;
 import com.rutas.neighborhood.application.handler.INeighborhoodHandler;
@@ -59,7 +60,18 @@ public class NeighborhoodController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = NeighborhoodResponse.class))),
             @ApiResponse(responseCode = "404", description = "Neighborhood not found", content = @Content)
     })
-    @GetMapping("/get/{name}")
+    @GetMapping("/{id}")
+    public ResponseEntity<NeighborhoodClientResponse> getNeighborhoodByIdFromDB(@PathVariable(name = "id") Long neighborhoodId){
+        return ResponseEntity.ok(neighborhoodHandler.getNeighborhoodFromDBById(neighborhoodId));
+    }
+
+    @Operation(summary = "Get a neighborhood by his name")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Neighborhood found",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = NeighborhoodResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Neighborhood not found", content = @Content)
+    })
+    @GetMapping("/{name}")
     public ResponseEntity<NeighborhoodResponse> getNeighborhoodByNameFromDB(@PathVariable(name = "name") String neighborhoodName, @RequestHeader(value = "Authorization") String authorization){
         return ResponseEntity.ok(neighborhoodHandler.getNeighborhoodFromDBByName(neighborhoodName));
     }

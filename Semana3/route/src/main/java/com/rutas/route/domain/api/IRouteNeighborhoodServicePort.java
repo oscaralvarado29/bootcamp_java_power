@@ -1,6 +1,6 @@
-package com.rutas.conductor.creacion_de_rutas.domain.api;
+package com.rutas.route.domain.api;
 
-import com.rutas.conductor.creacion_de_rutas.domain.model.RouteNeighborhood;
+import com.rutas.route.domain.model.RouteNeighborhood;
 
 import java.util.List;
 
@@ -10,5 +10,4 @@ public interface IRouteNeighborhoodServicePort {
     void deleteRouteNeighborhoodByRoute(Long routeId);
     List<RouteNeighborhood> getAllRouteNeighborhoods();
     List<RouteNeighborhood> findRouteNeighborhoodByRoute(Long routeId);
-
 }

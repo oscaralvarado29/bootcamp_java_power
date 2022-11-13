@@ -1,5 +1,6 @@
 package com.rutas.neighborhood.application.handler;
 
+import com.rutas.neighborhood.application.dto.NeighborhoodClientResponse;
 import com.rutas.neighborhood.application.dto.NeighborhoodRequest;
 import com.rutas.neighborhood.application.dto.NeighborhoodResponse;
 
@@ -9,6 +10,7 @@ public interface INeighborhoodHandler {
     void saveNeighborhoodInDB(NeighborhoodRequest neighborhoodRequest);
     List<NeighborhoodResponse> getAllNeighborhoodsFromDB();
     NeighborhoodResponse getNeighborhoodFromDBByName(String name);
+    NeighborhoodClientResponse getNeighborhoodFromDBById(Long neighborhoodId);
     void deleteNeighborhoodInDB(String name);
     void updateNeighborhoodInDB(NeighborhoodRequest neighborhoodRequest);
 }
