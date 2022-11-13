@@ -4,13 +4,11 @@ import com.rutas.login.domain.model.Login;
 import com.rutas.login.domain.spi.ILoginPersistancePort;
 import com.rutas.login.infraestructure.output.client.CognitoLoginClient;
 import com.rutas.login.infraestructure.output.client.SignupClient;
-import com.rutas.login.infraestructure.dto.Cognito;
+import com.rutas.login.infraestructure.dto.CognitoLoginResponse;
 import com.rutas.login.infraestructure.dto.UserResponse;
 import com.rutas.login.infraestructure.exception.PasswordIncorrectException;
-import com.rutas.login.infraestructure.exception.UserNotRegisterException;
 import com.rutas.login.infraestructure.output.feigns.mapper.LoginEntityMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 
 @RequiredArgsConstructor
 public class LoginFeignsAdapter implements ILoginPersistancePort {
@@ -21,21 +19,16 @@ public class LoginFeignsAdapter implements ILoginPersistancePort {
 
     @Override
     public String generateToken(Login login) {
-        System.out.println("Entro al adapter");
-        ResponseEntity<UserResponse> user= signupClient.getUserFromDBByEmail(login.getEmail());
-        Cognito cognitoAnswer;
-        if (user.getBody().getUsername() != null) {
-            if (user.getBody().getPassword().equals(login.getPassword())) {
-                cognitoAnswer = cognitoLoginClient.Login(loginEntityMapper.toLoginEntity(user.getBody().getUsername(),login)).getBody();
-            } else {
-                throw new PasswordIncorrectException();
-            }
+
+        UserResponse user = signupClient.getUserFromDBByEmail(login.getEmail()).getBody();
+        CognitoLoginResponse cognitoLoginResponseAnswer;
+        if (user.getPassword().equals(login.getPassword())) {
+            cognitoLoginResponseAnswer = cognitoLoginClient.Login(loginEntityMapper.toLoginEntity(user.getUsername(), login)).getBody();
         } else {
-            throw new UserNotRegisterException();
+            throw new PasswordIncorrectException();
         }
-        String[] body = cognitoAnswer.getBody();
-        String loginAnswer = "El idToken del usuaro es" + body[2];
-        System.out.println(loginAnswer);
+        String[] body = cognitoLoginResponseAnswer.getBody();
+        String loginAnswer = "El idToken del usuario es: " + (body[3].substring(11, body[3].length() - 1));
         return loginAnswer;
     }
 }

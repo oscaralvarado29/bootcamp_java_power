@@ -13,8 +13,8 @@ public class LoginUseCase implements ILoginServicePort {
     }
 
     /**
-     * @param login
-     * @return
+     * @param login the login to be validated
+     * @return the token generated
      */
     @Override
     public String generateToken(Login login) {

@@ -7,12 +7,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Cognito {
+public class CognitoLoginResponse {
     private int statusCode;
     private String[] body;
     private boolean isBase64Encoded;
 
-    public Cognito(int statusCode, String body, boolean isBase64Encoded) {
+    public CognitoLoginResponse(int statusCode, String body, boolean isBase64Encoded) {
         this.statusCode = statusCode;
         this.body = body.split(",");
         this.isBase64Encoded = isBase64Encoded;
