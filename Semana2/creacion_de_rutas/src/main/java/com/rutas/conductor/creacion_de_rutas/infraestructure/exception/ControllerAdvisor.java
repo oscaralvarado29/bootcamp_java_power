@@ -95,5 +95,4 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> repeatedNeighborhoods(){
         return ResponseEntity.status(HttpStatus.CONFLICT).body(Collections.singletonMap(MESSAGE, ExceptionResponse.REPEATED_NEIGHBORHOODS.getMessage()));
     }
-
 }

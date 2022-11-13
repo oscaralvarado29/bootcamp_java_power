@@ -1,9 +1,10 @@
-package com.rutas.conductor.creacion_de_rutas.domain.usecase;
+package com.rutas.conductor.creacion_de_rutas.usecase;
 
 import com.rutas.conductor.creacion_de_rutas.domain.exceptions.RepeatedNeighborhoodsException;
 import com.rutas.conductor.creacion_de_rutas.domain.factory.FactoryRouteNeighborhoodDataTest;
 import com.rutas.conductor.creacion_de_rutas.domain.model.RouteNeighborhood;
 import com.rutas.conductor.creacion_de_rutas.domain.spi.IRouteNeighborhoodPersistencePort;
+import com.rutas.conductor.creacion_de_rutas.domain.usecase.RouteNeighborhoodUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,8 +1,8 @@
 package com.rutas.conductor.creacion_de_rutas.applicaton.mapper;
 
+import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteRequest;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteRequestClient;
 import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteNeighborhoodDto;
-import com.rutas.conductor.creacion_de_rutas.applicaton.dto.RouteRequest;
 import com.rutas.conductor.creacion_de_rutas.domain.model.Neighborhood;
 import com.rutas.conductor.creacion_de_rutas.domain.model.RouteNeighborhood;
 import org.mapstruct.Mapper;

@@ -7,6 +7,5 @@ import java.util.Optional;
 
 public interface INeighborhoodRepository extends JpaRepository<NeighborhoodEntity, Long> {
     Optional<NeighborhoodEntity> findByNeighborhoodName(String name);
-
     void deleteByNeighborhoodName(String name);
 }

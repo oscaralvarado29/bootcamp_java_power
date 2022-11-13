@@ -1,9 +1,10 @@
-package com.rutas.conductor.creacion_de_rutas.domain.usecase;
+package com.rutas.conductor.creacion_de_rutas.usecase;
 
 import com.rutas.conductor.creacion_de_rutas.domain.exceptions.DateAndHourNotPresentException;
 import com.rutas.conductor.creacion_de_rutas.domain.factory.FactoryTravelDataTest;
 import com.rutas.conductor.creacion_de_rutas.domain.model.Travel;
 import com.rutas.conductor.creacion_de_rutas.domain.spi.ITravelPersistencePort;
+import com.rutas.conductor.creacion_de_rutas.domain.usecase.TravelUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

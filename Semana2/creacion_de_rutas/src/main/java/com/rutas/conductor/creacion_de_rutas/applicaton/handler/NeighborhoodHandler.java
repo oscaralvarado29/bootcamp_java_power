@@ -6,7 +6,6 @@ import com.rutas.conductor.creacion_de_rutas.applicaton.mapper.NeighborhoodReque
 import com.rutas.conductor.creacion_de_rutas.applicaton.mapper.NeighborhoodResponseMapper;
 import com.rutas.conductor.creacion_de_rutas.domain.api.INeighborhoodServicePort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

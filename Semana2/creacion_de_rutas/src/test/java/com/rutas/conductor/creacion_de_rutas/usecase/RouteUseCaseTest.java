@@ -1,9 +1,10 @@
-package com.rutas.conductor.creacion_de_rutas.domain.usecase;
+package com.rutas.conductor.creacion_de_rutas.usecase;
 
 import com.rutas.conductor.creacion_de_rutas.domain.exceptions.QuotaNotValidException;
 import com.rutas.conductor.creacion_de_rutas.domain.factory.FactoryRouteDataTest;
 import com.rutas.conductor.creacion_de_rutas.domain.model.Route;
 import com.rutas.conductor.creacion_de_rutas.domain.spi.IRoutePersistencePort;
+import com.rutas.conductor.creacion_de_rutas.domain.usecase.RouteUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

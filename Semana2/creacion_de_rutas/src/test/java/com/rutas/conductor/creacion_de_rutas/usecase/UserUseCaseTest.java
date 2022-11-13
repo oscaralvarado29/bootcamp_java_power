@@ -1,4 +1,4 @@
-package com.rutas.conductor.creacion_de_rutas.domain.usecase;
+package com.rutas.conductor.creacion_de_rutas.usecase;
 
 import com.rutas.conductor.creacion_de_rutas.domain.exceptions.EmailInvalidFormatException;
 import com.rutas.conductor.creacion_de_rutas.domain.exceptions.MissingMandatoryDataException;
@@ -6,6 +6,7 @@ import com.rutas.conductor.creacion_de_rutas.domain.exceptions.PasswordInvalidFo
 import com.rutas.conductor.creacion_de_rutas.domain.factory.FactoryUserDataTest;
 import com.rutas.conductor.creacion_de_rutas.domain.model.User;
 import com.rutas.conductor.creacion_de_rutas.domain.spi.IUserPersistencePort;
+import com.rutas.conductor.creacion_de_rutas.domain.usecase.UserUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
