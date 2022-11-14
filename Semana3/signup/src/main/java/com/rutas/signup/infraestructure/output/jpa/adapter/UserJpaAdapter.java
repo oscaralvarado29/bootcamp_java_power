@@ -2,7 +2,7 @@ package com.rutas.signup.infraestructure.output.jpa.adapter;
 
 import com.rutas.signup.domain.model.User;
 import com.rutas.signup.domain.spi.IUserPersistencePort;
-import com.rutas.signup.infraestructure.dto.Cognito;
+import com.rutas.signup.infraestructure.dto.CognitoSignupResponse;
 import com.rutas.signup.infraestructure.exception.UserAlreadyExistsException;
 import com.rutas.signup.infraestructure.exception.UserNotFoundException;
 import com.rutas.signup.infraestructure.output.client.CognitoClient;
@@ -25,7 +25,7 @@ public class UserJpaAdapter implements IUserPersistencePort {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException();
         }
-        Optional<Cognito> cognitoAnswer = Optional.ofNullable(cognitoClient.Signup(user).getBody());
+        Optional<CognitoSignupResponse> cognitoAnswer = Optional.ofNullable(cognitoClient.Signup(user).getBody());
         if (cognitoAnswer.isPresent()) {
             String[] body = cognitoAnswer.get().getBody();
             int endIndex = body[1].length() - 1;

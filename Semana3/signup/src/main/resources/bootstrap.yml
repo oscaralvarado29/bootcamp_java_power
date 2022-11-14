@@ -7,5 +7,5 @@ spring:
       username: root
       password: Contrasena123
       profile: dev
-appdescription: "aplicacion de registro de usuario"
+appdescription: "This is the Signup Service"
 appversion: "1.0.0"
