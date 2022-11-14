@@ -7,3 +7,6 @@ spring:
       username: root
       password: Contrasena123
       profile: dev
+
+appdescription: "This is the Login Service"
+appversion: "1.0.0"
