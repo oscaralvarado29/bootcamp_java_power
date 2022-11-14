@@ -38,14 +38,9 @@ public class RouteHandler implements IRouteHandler {
 
     @Override
     public void saveRouteInDB(RouteRequestClient routeRequestClient) {
-        System.out.println("INCIA EL PROCESO DE ALACENADO DE LA RUTA");
-
         List<Neighborhood> neighborhoods = neighborhoodServicePort.getAllNeighborhoods();
-        System.out.println("se obtienen los vecindarios: en total son: " + neighborhoods.size());
         RouteRequest routeRequest = routeClientRequestMapper.toRouteRequest(routeRequestClient, neighborhoods);
-        System.out.println("se mapea la ruta a routeRequest quedando " + routeRequest);
         User conductor =  userServicePort.findUserByEmail(routeRequest.getConductorEmail());
-        System.out.println("se obtiene el conductor con el id: " + conductor.getUserId());
         Route routeWithOutConductorId = routeRequestMapper.toRoute(routeRequest);
         routeWithOutConductorId.setConductorId(conductor.getUserId());
         routeServicePort.saveRoute(routeWithOutConductorId);
