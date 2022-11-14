@@ -15,11 +15,14 @@ public class NeighborhoodFeingAdapter implements INeighborhoodPersistancePort {
     private final NeighborhoodRequestMapper neighborhoodRequestMapper;
     @Override
     public Neighborhood getNeighborhood(Long neighborhoodId) {
-        return neighborhoodRequestMapper.toNeighborhood(neigborhoodClient.getNeighborhoodByIdFromDB(neighborhoodId).getBody());
+        Neighborhood neighborhood = neighborhoodRequestMapper.toNeighborhood(neigborhoodClient.getNeighborhoodByIdFromDB(neighborhoodId).getBody());
+        System.out.println(neighborhood.getNeighborhoodId());
+        return neighborhood;
     }
 
     @Override
     public List<Neighborhood> getAllNeighborhoods() {
         return neighborhoodRequestMapper.toNeighborhoodList(neigborhoodClient.getAllNeighborhoodsFromDB().getBody());
     }
+
 }

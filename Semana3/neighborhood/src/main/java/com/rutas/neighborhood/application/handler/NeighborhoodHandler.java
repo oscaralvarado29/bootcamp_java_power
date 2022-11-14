@@ -40,6 +40,11 @@ public class NeighborhoodHandler implements INeighborhoodHandler{
     }
 
     @Override
+    public List<NeighborhoodClientResponse> getNeighborhoodFromDBByNameForClient() {
+        return neighborhoodClientResponseMapper.toNeighborhoodClientResponseList(neighborhoodServicePort.getAllNeighborhoods());
+    }
+
+    @Override
     public NeighborhoodClientResponse getNeighborhoodFromDBById(Long neighborhoodId) {
         return neighborhoodClientResponseMapper.toNeighborhoodClientResponse(neighborhoodServicePort.getNeighborhood(neighborhoodId));
     }

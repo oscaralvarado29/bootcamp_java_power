@@ -37,6 +37,7 @@ public interface RouteClientRequestMapper {
         neighborhoodWithId.ifPresent(neighborhood -> routeNeighborhood.setNeighborhoodId(neighborhood.getNeighborhoodId()));
         routeNeighborhood.setMeetingPoint(routeNeighborhoodDto.getMeetingPoint());
         routeNeighborhood.setPosition(routeNeighborhoodDto.getPosition());
+        System.out.println("El id de la parada es: " + neighborhoodWithId.get().getNeighborhoodName());
         return routeNeighborhood;
     }
 

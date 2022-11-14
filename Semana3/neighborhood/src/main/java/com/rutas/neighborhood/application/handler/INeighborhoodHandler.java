@@ -10,6 +10,7 @@ public interface INeighborhoodHandler {
     void saveNeighborhoodInDB(NeighborhoodRequest neighborhoodRequest);
     List<NeighborhoodResponse> getAllNeighborhoodsFromDB();
     NeighborhoodResponse getNeighborhoodFromDBByName(String name);
+    List<NeighborhoodClientResponse> getNeighborhoodFromDBByNameForClient();
     NeighborhoodClientResponse getNeighborhoodFromDBById(Long neighborhoodId);
     void deleteNeighborhoodInDB(String name);
     void updateNeighborhoodInDB(NeighborhoodRequest neighborhoodRequest);

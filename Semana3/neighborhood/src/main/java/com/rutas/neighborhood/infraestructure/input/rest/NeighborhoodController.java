@@ -54,12 +54,11 @@ public class NeighborhoodController {
         return ResponseEntity.ok(neighborhoodHandler.getAllNeighborhoodsFromDB());
     }
 
-    @Operation(summary = "Get a neighborhood by his name")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Neighborhood found",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = NeighborhoodResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Neighborhood not found", content = @Content)
-    })
+    @GetMapping("/getAllForClient")
+    public ResponseEntity<List<NeighborhoodClientResponse>> getAllNeighborhoodsFromDB(){
+        return ResponseEntity.ok(neighborhoodHandler.getNeighborhoodFromDBByNameForClient());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<NeighborhoodClientResponse> getNeighborhoodByIdFromDB(@PathVariable(name = "id") Long neighborhoodId){
         return ResponseEntity.ok(neighborhoodHandler.getNeighborhoodFromDBById(neighborhoodId));
