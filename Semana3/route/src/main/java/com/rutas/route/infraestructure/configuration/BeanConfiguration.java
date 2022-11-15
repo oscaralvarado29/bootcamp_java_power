@@ -9,7 +9,7 @@ import com.rutas.route.domain.spi.INeighborhoodPersistancePort;
 import com.rutas.route.domain.spi.IRouteNeighborhoodPersistencePort;
 import com.rutas.route.domain.spi.IRoutePersistencePort;
 import com.rutas.route.domain.spi.ITravelPersistencePort;
-import com.rutas.route.domain.spi.IUserPersistancePort;
+import com.rutas.route.domain.spi.IUserPersistencePort;
 import com.rutas.route.domain.usecase.NeighborhoodUseCase;
 import com.rutas.route.domain.usecase.RouteNeighborhoodUseCase;
 import com.rutas.route.domain.usecase.RouteUseCase;
@@ -50,7 +50,7 @@ public class BeanConfiguration {
     private final NeighborhoodRequestMapper neighborhoodRequestMapper;
 
     @Bean
-    public IUserPersistancePort userPersistancePort() {
+    public IUserPersistencePort userPersistancePort() {
         return new UserFeingAdapter(userClient, userRequestMapper);
     }
 

@@ -4,11 +4,13 @@ public class User {
     private Long userId;
     private String email;
 
+    public User() {
+    }
+
     public User(Long userId, String email) {
         this.userId = userId;
         this.email = email;
     }
-
     public Long getUserId() {
         return userId;
     }

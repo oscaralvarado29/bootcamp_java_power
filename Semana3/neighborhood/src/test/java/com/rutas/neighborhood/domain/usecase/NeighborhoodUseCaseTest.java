@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
@@ -20,11 +19,10 @@ class NeighborhoodUseCaseTest {
     NeighborhoodUseCase neighborhoodUseCase;
     @Mock
     INeighborhoodPersistencePort neighborhoodPersistencePort;
-    private Neighborhood neighborhood = new Neighborhood();
+    private final Neighborhood neighborhood = new Neighborhood();
 
     @BeforeEach
     void setUp() {
-
         neighborhood.setNeighborhoodId(1L);
         neighborhood.setNeighborhoodName("Neighborhood 1");
         neighborhood.setNeighborhoodDescription("Neighborhood 1 description");

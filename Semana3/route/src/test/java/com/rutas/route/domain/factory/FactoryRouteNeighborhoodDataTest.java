@@ -1,12 +1,11 @@
-package com.rutas.conductor.creacion_de_rutas.domain.factory;
+package com.rutas.route.domain.factory;
 
-import com.rutas.conductor.creacion_de_rutas.domain.model.RouteNeighborhood;
+import com.rutas.route.domain.model.RouteNeighborhood;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FactoryRouteNeighborhoodDataTest {
-
     public static RouteNeighborhood getRouteNeighborhood() {
         RouteNeighborhood routeNeighborhood = new RouteNeighborhood();
         routeNeighborhood.setRouteNeighborhoodId(1L);
@@ -16,6 +15,7 @@ public class FactoryRouteNeighborhoodDataTest {
         routeNeighborhood.setPosition(1);
         return routeNeighborhood;
     }
+
     public static List<RouteNeighborhood> getRouteNeighborhoodsList() {
         List<RouteNeighborhood> routeNeighborhoods = new ArrayList<>();
         routeNeighborhoods.add(getRouteNeighborhood());

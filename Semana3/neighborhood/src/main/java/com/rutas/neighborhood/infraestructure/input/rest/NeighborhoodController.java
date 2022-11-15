@@ -70,7 +70,7 @@ public class NeighborhoodController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = NeighborhoodResponse.class))),
             @ApiResponse(responseCode = "404", description = "Neighborhood not found", content = @Content)
     })
-    @GetMapping("/{name}")
+    @GetMapping("/get/{name}")
     public ResponseEntity<NeighborhoodResponse> getNeighborhoodByNameFromDB(@PathVariable(name = "name") String neighborhoodName, @RequestHeader(value = "Authorization") String authorization){
         return ResponseEntity.ok(neighborhoodHandler.getNeighborhoodFromDBByName(neighborhoodName));
     }
