@@ -1,5 +1,6 @@
 package com.rutas.route.applicaton.mapper;
 
+import com.rutas.route.applicaton.NeighborhoodNotFoundException;
 import com.rutas.route.applicaton.dto.RouteNeighborhoodDto;
 import com.rutas.route.applicaton.dto.RouteRequest;
 import com.rutas.route.applicaton.dto.RouteRequestClient;
@@ -34,7 +35,11 @@ public interface RouteClientRequestMapper {
     default RouteNeighborhood toRouteNeighborhood(RouteNeighborhoodDto routeNeighborhoodDto, List<Neighborhood> neighborhoods) {
         RouteNeighborhood routeNeighborhood = new RouteNeighborhood();
         Optional<Neighborhood> neighborhoodWithId = neighborhoods.stream().filter(neighborhood -> neighborhood.getNeighborhoodName().equals(routeNeighborhoodDto.getNeighborhoodName())).findFirst();
-        neighborhoodWithId.ifPresent(neighborhood -> routeNeighborhood.setNeighborhoodId(neighborhood.getNeighborhoodId()));
+        if (neighborhoodWithId.isPresent()) {
+            routeNeighborhood.setNeighborhoodId(neighborhoodWithId.get().getNeighborhoodId());
+        } else {
+            throw new NeighborhoodNotFoundException("El barrio " + routeNeighborhoodDto.getNeighborhoodName() + " no existe");
+        }
         routeNeighborhood.setMeetingPoint(routeNeighborhoodDto.getMeetingPoint());
         routeNeighborhood.setPosition(routeNeighborhoodDto.getPosition());
         return routeNeighborhood;

@@ -1,5 +1,6 @@
 package com.rutas.route.infraestructure.exception;
 
+import com.rutas.route.applicaton.NeighborhoodNotFoundException;
 import com.rutas.route.domain.exception.DateAndHourNotPresentException;
 import com.rutas.route.domain.exception.QuotaNotValidException;
 import com.rutas.route.domain.exception.RepeatedNeighborhoodsException;
@@ -61,8 +62,25 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> missingRequestHeader(){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap(MESSAGE, ExceptionResponse.HEADER_AUTHORIZATION_NOT_PRESENT.getMessage()));
     }
+
+    @ExceptionHandler(NeighborhoodNotFoundException.class)
+    public ResponseEntity<Map<String, String>> neighborhoodNotFound(NeighborhoodNotFoundException neighborhoodNotFoundException){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap(MESSAGE, neighborhoodNotFoundException.getMessage()));
+    }
+
     @ExceptionHandler(FeignException.class)
-    public ResponseEntity<Map<String, String>> feignException(){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap(MESSAGE, ExceptionResponse.FEIGN_EXCEPTION.getMessage()));
+    public ResponseEntity<Map<String, String>> feignException(FeignException feignException){
+        String[] message = feignException.getMessage().split("/");
+        if (feignException.status() == 404){
+            String email = message[4].replace("%40", "@");
+            String messageResponse = ExceptionResponse.USER_NOT_FOUND.getMessage() ;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap(MESSAGE, messageResponse.substring(0,8) + email + messageResponse.substring(7)));
+        } else {
+            if (feignException.status() == -1) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(Collections.singletonMap(MESSAGE, ExceptionResponse.CONNECT_EXCEPTION.getMessage() + message[3]));
+            } else {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(Collections.singletonMap(MESSAGE, feignException.getMessage()));
+            }
+        }
     }
 }

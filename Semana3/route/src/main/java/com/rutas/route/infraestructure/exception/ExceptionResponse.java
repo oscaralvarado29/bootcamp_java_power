@@ -11,7 +11,8 @@ public enum ExceptionResponse {
     ROUTENEIGHBORHOOD_ALREADY_EXISTS("El barrio ya existe"),
     TRAVEL_NOT_FOUND("No se encontró el viaje"),
     TRAVEL_ALREADY_EXISTS("El viaje ya existe"),
-    FEIGN_EXCEPTION("No se pudo realizar la councaconconel clente fenig"),
+    USER_NOT_FOUND("Usuario no se a registrado"),
+    CONNECT_EXCEPTION("Fallo la comunicacion con el servicio "),
     HEADER_AUTHORIZATION_NOT_PRESENT("Usuario no autorizado");
 
     private final String  message;

@@ -9,6 +9,8 @@ import com.rutas.login.infraestructure.dto.UserResponse;
 import com.rutas.login.infraestructure.exception.PasswordIncorrectException;
 import com.rutas.login.infraestructure.output.feigns.mapper.LoginEntityMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @RequiredArgsConstructor
 public class LoginFeignsAdapter implements ILoginPersistancePort {
@@ -21,14 +23,25 @@ public class LoginFeignsAdapter implements ILoginPersistancePort {
     public String generateToken(Login login) {
 
         UserResponse user = signupClient.getUserFromDBByEmail(login.getEmail()).getBody();
-        CognitoLoginResponse cognitoLoginResponseAnswer;
+        ResponseEntity<CognitoLoginResponse> cognitoLoginResponseAnswer;
+        HttpStatus statusCode ;
         if (user.getPassword().equals(login.getPassword())) {
-            cognitoLoginResponseAnswer = cognitoLoginClient.Login(loginEntityMapper.toLoginEntity(user.getUsername(), login)).getBody();
+            cognitoLoginResponseAnswer = cognitoLoginClient.Login(loginEntityMapper.toLoginEntity(user.getUsername(), login));
         } else {
             throw new PasswordIncorrectException();
         }
-        String[] body = cognitoLoginResponseAnswer.getBody();
-        String loginAnswer = "El idToken del usuario es: " + (body[3].substring(11, body[3].length() - 1));
-        return loginAnswer;
+        statusCode = cognitoLoginResponseAnswer.getStatusCode();
+
+        if (statusCode == HttpStatus.OK) {
+            String[] body = cognitoLoginResponseAnswer.getBody().getBody();
+            String loginAnswer = "El idToken del usuario es: " + (body[3].substring(11, body[3].length() - 1));
+            return loginAnswer;
+        } else {
+            if (statusCode == HttpStatus.NOT_FOUND) {
+                throw new RuntimeException("Error al consultar el usuario");
+            } else {
+                throw new RuntimeException("Error al councarse conel servicio");
+            }
+        }
     }
 }

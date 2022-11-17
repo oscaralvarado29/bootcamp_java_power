@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,7 +39,7 @@ public class RouteController {
             @ApiResponse(responseCode = "409", description = "Route already exists", content = @Content)
     })
     @PostMapping("/save")
-    public ResponseEntity<Void> saveRouteInDB(@RequestBody RouteRequestClient routeRequestClient){
+    public ResponseEntity<Void> saveRouteInDB(@RequestBody RouteRequestClient routeRequestClient, @RequestHeader(value = "Authorization") String authorization){
         routeHandler.saveRouteInDB(routeRequestClient);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -51,7 +52,7 @@ public class RouteController {
             @ApiResponse(responseCode = "404", description = "Route not found", content = @Content)
     })
     @GetMapping("/getAll")
-    public ResponseEntity<List<RouteResponse>> getAllRoutesFromDB(){
+    public ResponseEntity<List<RouteResponse>> getAllRoutesFromDB(@RequestHeader(value = "Authorization") String authorization){
         return ResponseEntity.ok(routeHandler.getAllRoutesFromDB());
     }
 
@@ -62,7 +63,7 @@ public class RouteController {
             @ApiResponse(responseCode = "404", description = "Route not found", content = @Content)
     })
     @GetMapping("/get/{name}")
-    public ResponseEntity<RouteResponse> getRouteByNameFromDB(@PathVariable(name = "name") String routeName){
+    public ResponseEntity<RouteResponse> getRouteByNameFromDB(@PathVariable(name = "name") String routeName, @RequestHeader(value = "Authorization") String authorization){
         return ResponseEntity.ok(routeHandler.getRouteFromDBByName(routeName));
     }
 
@@ -72,7 +73,7 @@ public class RouteController {
             @ApiResponse(responseCode = "404", description = "Route not found", content = @Content)
     })
     @PutMapping("/update")
-    public ResponseEntity<Void> updateRouteInDB(@RequestBody RouteRequest routeRequest){
+    public ResponseEntity<Void> updateRouteInDB(@RequestBody RouteRequest routeRequest, @RequestHeader(value = "Authorization") String authorization){
         routeHandler.updateRouteInDB(routeRequest);
         return ResponseEntity.noContent().build();
     }
@@ -83,12 +84,12 @@ public class RouteController {
             @ApiResponse(responseCode = "404", description = "Route not found", content = @Content)
     })
     @DeleteMapping("/delete/{routeName}")
-    public ResponseEntity<Void> deleteRouteInDB(@PathVariable String routeName){
+    public ResponseEntity<Void> deleteRouteInDB(@PathVariable String routeName, @RequestHeader(value = "Authorization") String authorization){
         routeHandler.deleteRouteInDB(routeName);
         return ResponseEntity.noContent().build();
     }
     @DeleteMapping  ("/deleteTravel/{routeName}/{travelDate}")
-    public ResponseEntity<Void> deleteTravelInDB(@PathVariable String routeName, @PathVariable String travelDate){
+    public ResponseEntity<Void> deleteTravelInDB(@PathVariable String routeName, @PathVariable String travelDate, @RequestHeader(value = "Authorization") String authorization){
         routeHandler.deleteTravelInDB(routeName, travelDate);
         return ResponseEntity.noContent().build();
     }
