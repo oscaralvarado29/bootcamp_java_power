@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: login-service
+  cloud:
+    config:
+      uri: http://localhost:8081
+      username: root
+      password: Contrasena123
+      profile: dev
+
+appdescription: "This is the Login Service"
+appversion: "1.0.0"
